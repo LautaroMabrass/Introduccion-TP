@@ -1,0 +1,16 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend del proyecto integrador",
+  "main": "src/api.js",
+  "scripts": {
+    "dev": "nodemon src/api.js"
+  },
+  "author": "El senior de los strings",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10",
+    "pg": "^8.16.3"
+  }
+}
