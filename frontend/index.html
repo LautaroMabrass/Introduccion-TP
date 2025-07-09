@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Laboratorio de Sueños</title>
   <link rel="stylesheet" href="styles/styles.css" />
 </head>
@@ -34,17 +34,25 @@
       <h2 class="contenedor-principal-crear-suenio-titulo">Escribe tu sueño</h2>
 
       <div class="contenedor-principal-crear-suenio-formulario">
-        <input type="text" placeholder="Anoche soñé que..." class="contenedor-principal-crear-suenio-formulario-entrada" />
-        <input type="text" placeholder="Objetos característicos dentro del sueño" class="contenedor-principal-crear-suenio-formulario-objeto" />
-        <input type="text" placeholder="Firma/Autor" class="contenedor-principal-crear-suenio-formulario-firma" />
+        <input id="suenio" type="text" placeholder="Anoche soñé que..."
+          class="contenedor-principal-crear-suenio-formulario-entrada" />
+        <input id="emociones_del_suenio" type="text"
+          placeholder="Emociones sentidas dentro del sueño... (Ejemplo: miedo, felicidad....)"
+          class="contenedor-principal-crear-suenio-formulario-emociones" />
+        <input id="firma_del_autor" type="text" placeholder="Firma/Autor"
+          class="contenedor-principal-crear-suenio-formulario-firma" />
+        <input id="fecha_del_suenio" type="date" class="contenedor-principal-crear-suenio-formulario-fecha" />
       </div>
+
 
       <div class="contenedor-principal-crear-suenio-tipo">
         <label><input type="radio" name="tipo_suenio" value="lucido" /> Lúcido</label>
         <label><input type="radio" name="tipo_suenio" value="personal" /> Personal</label>
       </div>
 
-      <button class="contenedor-principal-crear-suenio-guardar">Guardar Sueño</button>
+      <button class="contenedor-principal-crear-suenio-guardar" onclick="crearSuenio()">Guardar Sueño</button>
+      <p id="msjerror" class="contenedor-principal-crear-suenio-error">Todos los campos son obligatorios.</p>
+
 
     </section>
 
@@ -77,6 +85,6 @@
     </section>
 
   </main>
-
 </body>
+
 </html>

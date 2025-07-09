@@ -16,8 +16,8 @@
   background-color: #0078d4;
   color: #fff;
   padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
 }
 
@@ -35,14 +35,10 @@
   font-size: 40px;
 }
 
-/* Links de navegacion */
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 40px;
-  align-items: center;
-  padding-left: 0;
-  margin: 0;
+  gap: 20px;
 }
 
 .nav-links-botones a {
@@ -70,7 +66,7 @@
 
 /* Main */
 
-/* Seccion crear sueños */
+/* Sección crear sueños */
 .contenedor-principal-crear-suenio {
   background-color: #FFFFFF;
   padding: 20px;
@@ -106,12 +102,26 @@
   width: 100%;
 }
 
-.contenedor-principal-crear-suenio-formulario-objeto {
-  width: 500px;
+.contenedor-principal-crear-suenio-formulario-emociones {
+  width: 600px;
 }
 
 .contenedor-principal-crear-suenio-formulario-firma {
   width: 300px;
+}
+
+.contenedor-principal-crear-suenio-formulario-fecha {
+  padding: 10px;
+  width: 200px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.contenedor-principal-crear-suenio-error {
+  color: red;
+  display: none;
+  font-size: 20px;
 }
 
 /* Radio tipo de sueño */
@@ -134,7 +144,7 @@
   accent-color: #0078d4;
 }
 
-/* Boton guardar sueño */
+/* Botón guardar sueño */
 .contenedor-principal-crear-suenio-guardar {
   background-color: #0078d4;
   color: #FFFFFF;
@@ -151,7 +161,7 @@
   color: #FFFFFF;
 }
 
-/* Seccion explorar sueños */
+/* Sección explorar sueños */
 .contenedor-principal-explorar {
   display: flex;
   flex-direction: column;
