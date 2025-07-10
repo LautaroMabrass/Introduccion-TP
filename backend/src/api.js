@@ -134,11 +134,11 @@ app.post('/api/suenios-lucidos', async (req, res) => {
     const firma = req.body.firma;
     const contenido = req.body.contenido;
     const fecha = req.body.fecha;
-    const emociones = req.body.emociones;
-    if (!firma || !contenido || !fecha || !emociones) {
+    const nivel_de_lucidez = req.body.nivel_de_lucidez;
+    if (!firma || !contenido || !fecha || !nivel_de_lucidez) {
       return res.status(400).json({ error: 'Falta información requerida' });
     }
-    const respuesta = await createSuenioLucido(firma, contenido, fecha, emociones);
+    const respuesta = await createSuenioLucido(firma, contenido, fecha, nivel_de_lucidez);
     if (!respuesta) {
       return res.status(500).json({ error: 'Error al crear el sueño lucido' });
     }
