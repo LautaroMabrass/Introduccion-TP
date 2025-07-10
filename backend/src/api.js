@@ -12,7 +12,12 @@ const {
   getAllSuenios,
   getComentariosRelacionadosASuenios,
   createComentarioPersonal,
-  deleteOneComentarioPersonal
+  deleteOneComentarioPersonal,
+  getAllSueniosLucidos,
+  createSuenioLucido,
+  getComentariosRelacionadosASueniosLucidos,
+  createComentarioSuenioLucido,
+  deleteOneComentarioSuenioLucido
 } = require('./acceso-db');
 
 
@@ -20,7 +25,10 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-// Crear un nuevo sueño
+
+// Acceso a la base de datos para los sueños personales
+
+// Crear un nuevo sueño (Sueños personales UNICAMENTE)
 app.post('/api/suenios-personales', async (req, res) => {
   try {
     const firma = req.body.firma;
@@ -56,7 +64,6 @@ app.get('/api/suenios-personales', async (req, res) => {
   }
 );
 
-
 // Obtener comentarios relacionados a un sueño especifico
 app.get('/api/comentarios-personales/:id', async (req, res) => {
   try {
@@ -69,7 +76,9 @@ app.get('/api/comentarios-personales/:id', async (req, res) => {
   }
 });
 
-// Crear un nuevo comentario
+// Acceso a la base de datos para los comentarios de sueños personales
+
+// Crear un nuevo comentario en un sueño personal
 app.post('/api/comentarios-personales', async (req, res) => {
   try {
     const contenido = req.body.contenido;
@@ -91,11 +100,91 @@ app.post('/api/comentarios-personales', async (req, res) => {
   }
 });
 
-// Eliminar un comentario
+// Eliminar un comentario en sueños personales
 app.delete('/api/comentarios-personales/:id', async (req, res) => {
   try {
     const id = req.params.id;
     const result = await deleteOneComentarioPersonal(id);
+    if (!result) {
+      return res.status(404).json({ error: 'Comentario no encontrado' });
+    }
+    return res.status(200).json({ message: 'Comentario eliminado' });
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ error: 'Error del servidor' });
+  }
+});
+
+// Acceso a la base de datos para los sueños lucidos
+
+// Obtener todos los sueños lucidos
+app.get('/api/suenios-lucidos', async (req, res) => {
+  try {
+    const sueniosLucidos = await getAllSueniosLucidos();
+    return res.status(200).json(sueniosLucidos);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ error: 'Error del servidor' });
+  }}
+);
+
+// Crear un nuevo sueño lucido
+app.post('/api/suenios-lucidos', async (req, res) => {
+  try {
+    const firma = req.body.firma;
+    const contenido = req.body.contenido;
+    const fecha = req.body.fecha;
+    const emociones = req.body.emociones;
+    if (!firma || !contenido || !fecha || !emociones) {
+      return res.status(400).json({ error: 'Falta información requerida' });
+    }
+    const respuesta = await createSuenioLucido(firma, contenido, fecha, emociones);
+    if (!respuesta) {
+      return res.status(500).json({ error: 'Error al crear el sueño lucido' });
+    }
+    return res.status(201).json(respuesta);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ error: 'Error del servidor' });
+  }
+});
+
+// Obtener comentarios relacionados a un sueño lucido especifico
+app.get('/api/comentarios-suenios-lucidos/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const comentarios = await getComentariosRelacionadosASueniosLucidos(id);
+    return res.status(200).json(comentarios);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ error: 'Error del servidor' });
+  }
+});
+
+// Crear un nuevo comentario en un sueño lucido
+app.post('/api/comentarios-suenios-lucidos', async (req, res) => {
+  try {
+    const contenido = req.body.contenido;
+    const suenios_lucidos_id = req.body.suenios_lucidos_id;
+    if (!contenido || !suenios_lucidos_id) {
+      return res.status(400).json({ error: 'Falta información requerida' });
+    }
+    const result = await createComentarioSuenioLucido(contenido, suenios_lucidos_id);
+    if (!result) {
+      return res.status(500).json({ error: 'Error al crear el comentario' });
+    }
+    return res.status(201).json(result);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ error: 'Error del servidor' });
+  }
+});
+
+// Eliminar un comentario en sueños lucidos
+app.delete('/api/comentarios-suenios-lucidos/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const result = await deleteOneComentarioSuenioLucido(id);
     if (!result) {
       return res.status(404).json({ error: 'Comentario no encontrado' });
     }
