@@ -34,20 +34,42 @@
       <h2 class="contenedor-principal-crear-suenio-titulo">Escribe tu sueño</h2>
 
       <div class="contenedor-principal-crear-suenio-formulario">
+
         <input id="suenio" type="text" placeholder="Anoche soñé que..."
           class="contenedor-principal-crear-suenio-formulario-entrada" />
+
         <input id="emociones_del_suenio" type="text"
           placeholder="Emociones sentidas dentro del sueño... (Ejemplo: miedo, felicidad....)"
           class="contenedor-principal-crear-suenio-formulario-emociones" />
+
+        <!-- Caso sueño lucido -->
+        <div id="escala_lucidez" class="contenedor-principal-crear-suenio-formulario-lucidez">
+          <label for="nivel_lucidez">Nivel de lucidez:</label>
+          <select id="nivel_lucidez">
+            <option value="1">1 - Muy bajo</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 - Medio</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10 - Total</option>
+          </select>
+        </div>
+
         <input id="firma_del_autor" type="text" placeholder="Firma/Autor"
           class="contenedor-principal-crear-suenio-formulario-firma" />
+
         <input id="fecha_del_suenio" type="date" class="contenedor-principal-crear-suenio-formulario-fecha" />
+
       </div>
 
 
       <div class="contenedor-principal-crear-suenio-tipo">
-        <label><input type="radio" name="tipo_suenio" value="lucido" /> Lúcido</label>
-        <label><input type="radio" name="tipo_suenio" value="personal" /> Personal</label>
+        <label><input type="radio" name="tipo_suenio" value="lucido" onchange="actualizarCampos()" /> Lúcido</label>
+        <label><input type="radio" name="tipo_suenio" value="personal" checked onchange="actualizarCampos()" /> Personal</label>
       </div>
 
       <button class="contenedor-principal-crear-suenio-guardar" onclick="crearSuenio()">Guardar Sueño</button>
@@ -63,7 +85,7 @@
 
       <div class="contenedor-principal-explorar-tarjetas">
 
-        <a href="explorar.html" class="contenedor-principal-explorar-tarjetas-tarjeta">
+        <a href="mis-suenios.html" class="contenedor-principal-explorar-tarjetas-tarjeta">
           <div class="contenedor-principal-explorar-tarjetas-tarjeta-icono">🧠</div>
           <h3>Sueños Personales</h3>
           <p>Ir al blog de sueños.</p>
