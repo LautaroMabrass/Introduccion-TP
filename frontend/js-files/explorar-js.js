@@ -1,6 +1,8 @@
 const sueniosApi = 'http://localhost:3000/api/suenios-personales';
 const comentariosPersonalesApi = 'http://localhost:3000/api/comentarios-personales';
 const divTarjetaSuenioInformacion = document.getElementById('tarjeta-suenio-append-informacion');
+const sueniosLucidosApi = 'http://localhost:3000/api/suenios-lucidos';
+const comentariosLucidosApi = 'http://localhost:3000/api/comentarios-suenios-lucidos';
 
 // Primer fetch: obtener los sueños
 fetch(sueniosApi)
@@ -98,6 +100,104 @@ fetch(sueniosApi)
         divTarjetaSuenioInformacion.appendChild(contenedorSuenio);
 
 
+    });
+  }).catch(e => {
+        console.error(e);
+    });
+
+// Tercer fetch: obtener sueños lúcidos
+fetch(sueniosLucidosApi)
+  .then(response => {
+    if (response.ok) {
+        return response.json();}
+    else {
+        console.error('Error al obtener los sueños lúcidos');}
+  })
+  .then(suenios => {
+    console.log('Sueños lúcidos obtenidos:', suenios);
+
+    suenios.forEach(suenio => {
+        const contenedorSuenio = document.createElement('div');
+        contenedorSuenio.classList.add('contenedor-principal-explorar-tarjetas-suenio');
+
+        const h3 = document.createElement('h3');
+        h3.textContent = suenio.contenido;
+        h3.classList.add('contenedor-principal-explorar-tarjetas-suenio-historia');
+
+        const pTipo = document.createElement('p');
+        pTipo.textContent = "Tipo de sueño: Lúcido";
+        pTipo.classList.add('contenedor-principal-explorar-tarjetas-suenio-tipo_de_suenio');
+
+        const pNivel = document.createElement('p');
+        pNivel.textContent = `Nivel de control: ${suenio.nivel_de_lucidez}`;
+        pNivel.classList.add('contenedor-principal-explorar-tarjetas-suenio-nivel');
+
+        const pFirma = document.createElement('p');
+        pFirma.textContent = `Autor: ${suenio.firma}`;
+        pFirma.classList.add('contenedor-principal-explorar-tarjetas-suenio-firma');
+
+        const fecha = new Date(suenio.fecha);
+        const dia = String(fecha.getDate());
+        const mes = String(fecha.getMonth() + 1);
+        const anio = fecha.getFullYear();
+        const fechaFormateada = `${dia}/${mes}/${anio}`;
+
+        const pFecha = document.createElement('p');
+        pFecha.textContent = `Publicado el: ${fechaFormateada}`;
+        pFecha.classList.add('contenedor-principal-explorar-tarjetas-suenio-fecha');
+
+        contenedorSuenio.appendChild(h3);
+        contenedorSuenio.appendChild(pTipo);
+        contenedorSuenio.appendChild(pNivel);
+        contenedorSuenio.appendChild(pFirma);
+        contenedorSuenio.appendChild(pFecha);
+
+        // Cuarto fetch: obtener comentarios de sueños lúcidos
+        fetch(`${comentariosLucidosApi}/${suenio.id}`)
+            .then(response => {
+            if (response.ok) {
+                return response.json();}
+            else {
+                console.error('Error al obtener los comentarios lúcidos');}
+            })
+            .then(comentarios => {
+                comentarios.forEach(comentario => {
+                    const divComentario = document.createElement('div');
+                    divComentario.classList.add('contenedor-principal-explorar-tarjetas-suenio-lista_comentarios');
+
+                    const pComentario = document.createElement('p');
+                    pComentario.classList.add('contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-anonimo');
+                    pComentario.textContent = `💬 ${comentario.contenido}`;
+
+                    const botonEliminar = document.createElement('button');
+                    botonEliminar.classList.add('contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-eliminar');
+                    botonEliminar.textContent = '❌';
+                    botonEliminar.onclick = () => eliminarComentarioLucido(divComentario, comentario.id);
+
+                    divComentario.appendChild(pComentario);
+                    divComentario.appendChild(botonEliminar);
+                    contenedorSuenio.appendChild(divComentario);
+              });
+            })
+
+        const divComentar = document.createElement('div');
+        divComentar.classList.add('contenedor-principal-explorar-tarjetas-suenio-comentarios');
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = 'Comentar de forma anónima...';
+        input.classList.add('contenedor-principal-explorar-tarjetas-suenio-comentarios-input');
+
+        const boton = document.createElement('button');
+        boton.textContent = 'Enviar';
+        boton.classList.add('contenedor-principal-explorar-tarjetas-suenio-comentarios-boton');
+        boton.onclick = () => enviarComentarioLucido(input, suenio.id, contenedorSuenio);
+
+        divComentar.appendChild(input);
+        divComentar.appendChild(boton);
+
+        contenedorSuenio.appendChild(divComentar);
+        divTarjetaSuenioInformacion.appendChild(contenedorSuenio);
     });
   }).catch(e => {
         console.error(e);
