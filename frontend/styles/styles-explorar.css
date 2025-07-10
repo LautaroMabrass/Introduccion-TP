@@ -200,8 +200,9 @@ body{
   border-top: 1px solid #ccc;
   padding-top: 10px;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  width: 100%;
 }
 
 .contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-anonimo {
@@ -210,6 +211,15 @@ body{
   border-radius: 8px;
   font-size: 16px;
   color: #333;
+  width: 100%;
 }
 
+.contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-eliminar {
+  background-color: transparent;
+  border: none;
+  color: red;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+}
 
