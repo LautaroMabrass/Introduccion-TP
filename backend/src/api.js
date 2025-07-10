@@ -5,9 +5,13 @@ const port = 3000;
 const cors = require('cors');
 app.use(express.json());
 app.use(cors());
+
 // Importar funciones de acceso a la base de datos
 const {
   createSuenio,
+  getAllSuenios,
+  getComentariosRelacionadosASuenios,
+  createComentarioPersonal
 } = require('./acceso-db');
 
 
@@ -18,7 +22,10 @@ app.get('/api/health', (req, res) => {
 // Crear un nuevo sueño
 app.post('/api/suenios-personales', async (req, res) => {
   try {
-    const { firma, contenido, fecha, emociones } = req.body;
+    const firma = req.body.firma;
+    const contenido = req.body.contenido;
+    const fecha = req.body.fecha;
+    const emociones = req.body.emociones;
 
     if (!firma || !contenido || !fecha || !emociones) {
       return res.status(400).json({ error: 'Falta información requerida' });
@@ -29,10 +36,58 @@ app.post('/api/suenios-personales', async (req, res) => {
       return res.status(500).json({ error: 'Error al crear el sueño' });
     }
 
-    res.status(201).json(suenio);
+    return res.status(201).json(suenio);
   } catch (e) {
-    console.error("Error al crear el sueño:", e);
+    console.error(e);
     res.status(500).json({ e: "Error del servidor" });
+  }
+});
+
+// obtener todos los sueños
+app.get('/api/suenios-personales', async (req, res) => {
+  try {
+    const suenios = await getAllSuenios();
+    return res.status(200).json(suenios);
+  } catch (e) {
+    console.error("Error al obtener los sueños:", e);
+    return res.status(500).json({ error: 'Error del servidor' });
+  }
+  }
+);
+
+
+// Obtener comentarios relacionados a un sueño especifico
+app.get('/api/comentarios-personales/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const comentarios = await getComentariosRelacionadosASuenios(id);
+    return res.status(200).json(comentarios);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ error: 'Error del servidor' });
+  }
+});
+
+// Crear un nuevo comentario
+app.post('/api/comentarios-personales', async (req, res) => {
+  try {
+    const contenido = req.body.contenido;
+    const suenios_personales_id = req.body.suenios_personales_id;
+
+    if (!contenido || !suenios_personales_id) {
+      return res.status(400).json({ error: 'Falta información requerida' });
+    }
+
+    const result = await createComentarioPersonal(contenido, suenios_personales_id);
+    if (!result) {
+      return res.status(500).json({ error: 'Error al crear el comentario' });
+    }
+    console.log("Comentario creado:");
+    return res.status(201).json(result);
+
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Error del servidor' });
   }
 });
 
