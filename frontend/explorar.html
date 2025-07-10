@@ -53,47 +53,66 @@
     <section class="contenedor-principal-explorar-tarjetas">
     
     <!-- Contenedor principal de los sueños -->
-      <div class="contenedor-principal-explorar-tarjetas-todos" id="tarjeta-suenio-append-informacion">
 
-    <!-- estructura para seguir en JS
+        <div class="contenedor-principal-explorar-tarjetas-todos" id="tarjeta-suenio-append-informacion">
 
-    <div class="contenedor-principal-explorar-tarjetas-suenio">
+            <!-- Aca se agregan dinamicamente los sueños y sus respectivos comentarios -->
 
-        <h3 class="contenedor-principal-explorar-tarjetas-suenio-historia">
-            Anoche soñé que estaba en un circo
-        </h3>
-
-        <p class="contenedor-principal-explorar-tarjetas-suenio-emocion">
-            Emociones: felicidad
-        </p>
-
-        <p class="contenedor-principal-explorar-tarjetas-suenio-firma">
-            Autor: Lautaro
-        </p>
-
-        <p class="contenedor-principal-explorar-tarjetas-suenio-fecha">
-            Publicado el: 10/07/2025
-        </p>
-
-        <div class="contenedor-principal-explorar-tarjetas-suenio-lista_comentarios" id="comentarios-suenio-1">
-            <p class="contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-anonimo">💬 </p>
-            <p class="contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-anonimo">💬 </p>
-            <p class="contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-anonimo">💬 </p>
         </div>
-
-        <div class="contenedor-principal-explorar-tarjetas-suenio-comentarios">
-            <input type="text" placeholder="Comentar de forma anónima..." class="contenedor-principal-explorar-tarjetas-suenio-comentarios-input" />
-            <button class="contenedor-principal-explorar-tarjetas-suenio-comentarios-boton" onclick="enviarComentario(event)">Enviar</button>
-        </div>
-
-    </div
-    --> 
-
-      </div>
 
     </section>
 
   </main>
+
     <script src="js-files/explorar-js.js"></script>
+
 </body>
 </html>
+
+
+    <!-- Referencia hardcodeada de un sueño
+
+            <div class="contenedor-principal-explorar-tarjetas-suenio">
+
+                <h3 class="contenedor-principal-explorar-tarjetas-suenio-historia">
+                    Anoche soñé que estaba en un circo
+                </h3>
+
+                <p class="contenedor-principal-explorar-tarjetas-suenio-emocion">
+                    Emociones: felicidad
+                </p>
+
+                <p class="contenedor-principal-explorar-tarjetas-suenio-tipo_de_suenio">
+                    Tipo de sueño: Lúcido
+                </p>
+
+                <p class="contenedor-principal-explorar-tarjetas-suenio-firma">
+                    Autor: Lautaro
+                </p>
+
+                <p class="contenedor-principal-explorar-tarjetas-suenio-fecha">
+                    Publicado el: 10/07/2025
+                </p>
+
+                <div class="contenedor-principal-explorar-tarjetas-suenio-lista_comentarios" id="comentarios-suenio-1">
+                    <p class="contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-anonimo" id="comentario-suenio-{id}" >💬....</p>
+                    <button class="contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-eliminar" onclick="eliminarComentario()">❌</button>
+                </div>
+
+                <div class="contenedor-principal-explorar-tarjetas-suenio-lista_comentarios" id="comentarios-suenio-1">
+                    <p class="contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-anonimo" id="comentario-suenio-{id}" >💬....</p>
+                    <button class="contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-eliminar" onclick="eliminarComentario()">❌</button>
+                </div>
+
+                <div class="contenedor-principal-explorar-tarjetas-suenio-lista_comentarios" id="comentarios-suenio-1">
+                    <p class="contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-anonimo" id="comentario-suenio-{id}" >💬....</p>
+                    <button class="contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-eliminar" onclick="eliminarComentario()">❌</button>
+                </div>
+
+                <div class="contenedor-principal-explorar-tarjetas-suenio-comentarios">
+                    <input type="text" placeholder="Comentar de forma anónima..." class="contenedor-principal-explorar-tarjetas-suenio-comentarios-input" />
+                    <button class="contenedor-principal-explorar-tarjetas-suenio-comentarios-boton" onclick="enviarComentario(event)">Enviar</button>
+                </div>
+
+            </div> 
+    -->   
