@@ -118,6 +118,32 @@
   border: 1px solid #ccc;
 }
 
+.contenedor-principal-crear-suenio-formulario-lucidez {
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #0078d4;
+  color: #1e1e1e;
+  width: 300px;
+  display: none;
+}
+
+.contenedor-principal-crear-suenio-formulario-lucidez label{
+  font-weight: bold;
+  font-size: 1rem;
+  padding-right: 20px;
+}
+
+.contenedor-principal-crear-suenio-formulario-lucidez select {
+  background-color: #ffffff;
+  color: #1e1e1e;
+  font-size: 1rem;
+  padding: 10px; 
+  border-radius: 999px;
+  border-color: #0078d4;
+  border-style: solid;
+}
+
 .contenedor-principal-crear-suenio-error {
   color: red;
   display: none;
