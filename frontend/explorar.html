@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorar sueños</title>
+    <link rel="stylesheet" href="styles/styles-explorar.css">
+</head>
+<body class="body-explorar">
+
+    <header class="header">
+
+        <div class="header-logo">
+        <span class="header-logo-luna">🌙</span>
+        <h1 class="header-logo-h1">Laboratorio de Sueños</h1>
+        </div>
+
+        <nav>
+        <ul class="nav-links">
+            <li class="nav-links-botones"><a href="index.html">Inicio</a></li>
+            <li class="nav-links-botones"><a href="mis-suenios.html">Mis sueños</a></li>
+            <li class="nav-links-botones"><a href="explorar.html">Explorar</a></li>
+        </ul>
+        </nav>
+
+  </header>
+
+  <main class="contenedor-principal-explorar">
+
+    <section class="contenedor-principal-explorar-filtros">
+        <h1 class="contenedor-principal-explorar-filtros-titulo">Explorar</h1>
+
+        <div class="contenedor-principal-explorar-filtros-formulario">
+            <label>
+                <h2>Tipo de sueño: </h2>
+                <select id="filtro-tipo">
+                <option value="todos">Todos</option>
+                <option value="lucido">Lúcido</option>
+                <option value="personal">Común</option>
+                </select>
+            </label>
+
+            <label>
+                <h2>Emociones </h2>
+                <input type="text" id="filtro-emociones" placeholder="Felicidad, tristeza, miedo...">
+            </label>
+
+            <button class="contenedor-principal-explorar-filtros-formulario-boton">Buscar</button>
+        </div>
+
+    </section>
+
+    <section class="contenedor-principal-explorar-tarjetas">
+    
+    <!-- Contenedor principal de los sueños -->
+      <div class="contenedor-principal-explorar-tarjetas-todos" id="tarjeta-suenio-append-informacion">
+
+    <!-- estructura para seguir en JS
+
+    <div class="contenedor-principal-explorar-tarjetas-suenio">
+
+        <h3 class="contenedor-principal-explorar-tarjetas-suenio-historia">
+            Anoche soñé que estaba en un circo
+        </h3>
+
+        <p class="contenedor-principal-explorar-tarjetas-suenio-emocion">
+            Emociones: felicidad
+        </p>
+
+        <p class="contenedor-principal-explorar-tarjetas-suenio-firma">
+            Autor: Lautaro
+        </p>
+
+        <p class="contenedor-principal-explorar-tarjetas-suenio-fecha">
+            Publicado el: 10/07/2025
+        </p>
+
+        <div class="contenedor-principal-explorar-tarjetas-suenio-lista_comentarios" id="comentarios-suenio-1">
+            <p class="contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-anonimo">💬 </p>
+            <p class="contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-anonimo">💬 </p>
+            <p class="contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-anonimo">💬 </p>
+        </div>
+
+        <div class="contenedor-principal-explorar-tarjetas-suenio-comentarios">
+            <input type="text" placeholder="Comentar de forma anónima..." class="contenedor-principal-explorar-tarjetas-suenio-comentarios-input" />
+            <button class="contenedor-principal-explorar-tarjetas-suenio-comentarios-boton" onclick="enviarComentario(event)">Enviar</button>
+        </div>
+
+    </div
+    --> 
+
+      </div>
+
+    </section>
+
+  </main>
+    <script src="js-files/explorar-js.js"></script>
+</body>
+</html>

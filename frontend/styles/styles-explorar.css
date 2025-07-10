@@ -1,0 +1,215 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f9fbfd;
+  color: #1e1e1e;
+}
+
+/* Header */
+.header {
+  background-color: #0078d4;
+  color: #fff;
+  padding: 10px 20px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.header-logo {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.header-logo-luna {
+  font-size: 30px;
+}
+
+.header-logo-h1 {
+  font-size: 40px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links-botones a {
+  font-size: 20px;
+  color: #FFFFFF;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 2px solid #FFFFFF;
+  border-radius: 999px;
+  transition: color 0.5s ease, background-color 0.5s ease;
+  cursor: pointer;
+}
+
+.nav-links-botones a:hover {
+  color: #0078d4;
+  background-color: #FFFFFF;
+  text-decoration: none;
+}
+
+.nav-links-botones a:focus,
+.contenedor-principal-crear-suenio-guardar:focus {
+  outline: 3px solid #005a9e;
+  outline-offset: 2px;
+}
+
+/* Main */
+.contenedor-principal-explorar {
+  padding: 40px 20px;
+  margin: auto;
+}
+
+/* Filtros */
+.contenedor-principal-explorar-filtros {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.contenedor-principal-explorar-filtros-titulo {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.contenedor-principal-explorar-filtros-formulario {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  
+}
+
+.contenedor-principal-explorar-filtros-formulario label {
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  font-weight: bold;
+  color: #1e1e1e;
+}
+
+.contenedor-principal-explorar-filtros-formulario select,
+.contenedor-principal-explorar-filtros-formulario input {
+  padding: 10px;
+  border: 2px solid #0078d4;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.contenedor-principal-explorar-filtros-formulario-boton{
+    padding: 10px 20px;
+    background-color: #0078d4;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-end;
+}
+
+/* Tarjetas de sueños */
+.contenedor-principal-explorar-tarjetas {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+.contenedor-principal-explorar-tarjetas-suenio {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contenedor-principal-explorar-tarjetas-todos{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.contenedor-principal-explorar-tarjetas-suenio-historia {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1e1e1e;
+}
+
+.contenedor-principal-explorar-tarjetas-suenio-emocion,
+.contenedor-principal-explorar-tarjetas-suenio-firma {
+  font-size: 18px;
+  color: #555;
+}
+
+.contenedor-principal-explorar-tarjetas-suenio-fecha {
+  font-size: 14px;
+  color: #888;
+  margin-top: 10px;
+}
+
+.contenedor-principal-explorar-tarjetas-suenio-comentarios {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.contenedor-principal-explorar-tarjetas-suenio-comentarios-input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #0078d4;
+  font-size: 16px;
+}
+
+.contenedor-principal-explorar-tarjetas-suenio-comentarios-boton {
+  padding: 10px 16px;
+  background-color: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contenedor-principal-explorar-tarjetas-suenio-comentarios-boton:hover {
+  background-color: #005a9e;
+}
+
+/* Comentarios debajo del sueño */
+.contenedor-principal-explorar-tarjetas-suenio-lista_comentarios {
+  margin-top: 15px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-anonimo {
+  background-color: #eef3f8;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+}
+
+
