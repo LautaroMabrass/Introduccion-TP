@@ -123,7 +123,11 @@
   display: none;
   font-size: 20px;
 }
-
+.contenedor-principal-crear-suenio-exito {
+  color: green;
+  display: none;
+  font-size: 20px;
+}
 /* Radio tipo de sueño */
 .contenedor-principal-crear-suenio-tipo {
   display: flex;
