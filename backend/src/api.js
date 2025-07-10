@@ -11,7 +11,8 @@ const {
   createSuenio,
   getAllSuenios,
   getComentariosRelacionadosASuenios,
-  createComentarioPersonal
+  createComentarioPersonal,
+  deleteOneComentarioPersonal
 } = require('./acceso-db');
 
 
@@ -88,6 +89,21 @@ app.post('/api/comentarios-personales', async (req, res) => {
   } catch (e) {
     console.error(e);
     res.status(500).json({ error: 'Error del servidor' });
+  }
+});
+
+// Eliminar un comentario
+get.delete('/api/comentarios-personales/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const result = await deleteOneComentarioPersonal(id);
+    if (!result) {
+      return res.status(404).json({ error: 'Comentario no encontrado' });
+    }
+    return res.status(200).json({ message: 'Comentario eliminado' });
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ error: 'Error del servidor' });
   }
 });
 
