@@ -83,7 +83,6 @@ app.post('/api/comentarios-personales', async (req, res) => {
     if (!result) {
       return res.status(500).json({ error: 'Error al crear el comentario' });
     }
-    console.log("Comentario creado:");
     return res.status(201).json(result);
 
   } catch (e) {
@@ -93,7 +92,7 @@ app.post('/api/comentarios-personales', async (req, res) => {
 });
 
 // Eliminar un comentario
-get.delete('/api/comentarios-personales/:id', async (req, res) => {
+app.delete('/api/comentarios-personales/:id', async (req, res) => {
   try {
     const id = req.params.id;
     const result = await deleteOneComentarioPersonal(id);
