@@ -25,20 +25,33 @@ fetch(sueniosApi)
         pEmocion.textContent = `Emociones: ${suenio.emociones}`;
         pEmocion.classList.add('contenedor-principal-explorar-tarjetas-suenio-emocion');
 
+        const pTipoSuenio = document.createElement('p');
+        pTipoSuenio.textContent = "Tipo de sueño: Común"
+        pTipoSuenio.classList.add('contenedor-principal-explorar-tarjetas-suenio-tipo_de_suenio');
+
+
         const pFirma = document.createElement('p');
         pFirma.textContent = `Autor: ${suenio.firma}`;
         pFirma.classList.add('contenedor-principal-explorar-tarjetas-suenio-firma');
 
+        const fecha = new Date(suenio.fecha);
+        const dia = String(fecha.getDate());
+        const mes = String(fecha.getMonth() + 1);
+        const anio = fecha.getFullYear();
+        const fechaFormateada = `${dia}/${mes}/${anio}`;
+
         const pFecha = document.createElement('p');
-        pFecha.textContent = `Publicado el: ${suenio.fecha}`;
+        pFecha.textContent = `Publicado el: ${fechaFormateada}`;
         pFecha.classList.add('contenedor-principal-explorar-tarjetas-suenio-fecha');
 
         contenedorSuenio.appendChild(h3);
         contenedorSuenio.appendChild(pEmocion);
+        contenedorSuenio.appendChild(pTipoSuenio);
         contenedorSuenio.appendChild(pFirma);
         contenedorSuenio.appendChild(pFecha);
 
-    // Segundo fetch: obtener los comentarios personales para cada sueño
+    // Segundo fetch: obtener los comentarios personales para cada sueño Comun
+    
     fetch(`${comentariosPersonalesApi}/${suenio.id}`)
         .then(response => {
         if (response.ok) {

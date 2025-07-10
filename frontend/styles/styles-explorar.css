@@ -31,7 +31,7 @@ body{
 }
 
 .header-logo-h1 {
-  font-size: 40px;
+  font-size: 40px;;
 }
 
 .nav-links {
@@ -80,7 +80,7 @@ body{
 }
 
 .contenedor-principal-explorar-filtros-titulo {
-  font-size: 36px;
+  font-size: 50px;
   font-weight: bold;
   margin-bottom: 20px;
 }
@@ -88,16 +88,19 @@ body{
 .contenedor-principal-explorar-filtros-formulario {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
   gap: 30px;
-  
 }
 
 .contenedor-principal-explorar-filtros-formulario label {
   display: flex;
   flex-direction: column;
+  align-items: center;
   font-size: 18px;
   font-weight: bold;
   color: #1e1e1e;
+  width: 100%;
 }
 
 .contenedor-principal-explorar-filtros-formulario select,
@@ -107,6 +110,7 @@ body{
   border-radius: 8px;
   margin-top: 10px;
   font-size: 16px;
+  width: 300px;
 }
 
 .contenedor-principal-explorar-filtros-formulario-boton{
@@ -118,7 +122,6 @@ body{
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    align-self: flex-end;
 }
 
 /* Tarjetas de sueños */
@@ -154,7 +157,8 @@ body{
 }
 
 .contenedor-principal-explorar-tarjetas-suenio-emocion,
-.contenedor-principal-explorar-tarjetas-suenio-firma {
+.contenedor-principal-explorar-tarjetas-suenio-firma,
+.contenedor-principal-explorar-tarjetas-suenio-tipo_de_suenio {
   font-size: 18px;
   color: #555;
 }
