@@ -1,0 +1,220 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.body-index {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f9fbfd;
+  color: #1e1e1e;
+}
+
+/* Header */
+.header {
+  background-color: #0078d4;
+  color: #fff;
+  padding: 10px 20px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.header-logo {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.header-logo-luna {
+  font-size: 30px;
+}
+
+.header-logo-h1 {
+  font-size: 40px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links-botones a {
+  font-size: 20px;
+  color: #FFFFFF;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 2px solid #FFFFFF;
+  border-radius: 999px;
+  transition: color 0.5s ease, background-color 0.5s ease;
+  cursor: pointer;
+}
+
+.nav-links-botones a:hover {
+  color: #0078d4;
+  background-color: #FFFFFF;
+  text-decoration: none;
+}
+
+.nav-links-botones a:focus,
+.contenedor-principal-crear-suenio-guardar:focus {
+  outline: 3px solid #005a9e;
+  outline-offset: 2px;
+}
+
+/* Main */
+
+/* Sección crear sueños */
+.contenedor-principal-crear-suenio {
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 40px 20px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contenedor-principal-crear-suenio-titulo {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.contenedor-principal-crear-suenio-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.contenedor-principal-crear-suenio-formulario input {
+  padding: 10px;
+  border: 2px solid #0078d4;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+.contenedor-principal-crear-suenio-formulario-entrada {
+  width: 100%;
+}
+
+.contenedor-principal-crear-suenio-formulario-emociones {
+  width: 600px;
+}
+
+.contenedor-principal-crear-suenio-formulario-firma {
+  width: 300px;
+}
+
+.contenedor-principal-crear-suenio-formulario-fecha {
+  padding: 10px;
+  width: 200px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.contenedor-principal-crear-suenio-error {
+  color: red;
+  display: none;
+  font-size: 20px;
+}
+
+/* Radio tipo de sueño */
+.contenedor-principal-crear-suenio-tipo {
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+}
+
+.contenedor-principal-crear-suenio-tipo label {
+  font-size: 20px;
+  color: #1e1e1e;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.contenedor-principal-crear-suenio-tipo label input {
+  accent-color: #0078d4;
+}
+
+/* Botón guardar sueño */
+.contenedor-principal-crear-suenio-guardar {
+  background-color: #0078d4;
+  color: #FFFFFF;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.contenedor-principal-crear-suenio-guardar:hover {
+  background-color: #005a9e;
+  color: #FFFFFF;
+}
+
+/* Sección explorar sueños */
+.contenedor-principal-explorar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 40px 20px;
+  align-items: center;
+}
+
+.contenedor-principal-explorar h2 {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+/* Tarjetas explorar */
+.contenedor-principal-explorar-tarjetas {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+  justify-items: center;
+  margin-top: 50px;
+}
+
+.contenedor-principal-explorar-tarjetas-tarjeta {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  text-align: center;
+}
+
+.contenedor-principal-explorar-tarjetas-tarjeta:hover {
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+
+.contenedor-principal-explorar-tarjetas-tarjeta-icono {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.contenedor-principal-explorar-tarjetas-tarjeta h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.contenedor-principal-explorar-tarjetas-tarjeta p {
+  font-size: 18px;
+  color: #555;
+}

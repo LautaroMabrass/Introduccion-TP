@@ -1,11 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laboratorio de Sueños</title>
+  <link rel="stylesheet" href="styles/styles.css" />
 </head>
-<body>
-    <h1></h1>
+
+<body class="body-index">
+
+  <header class="header">
+
+    <div class="header-logo">
+      <span class="header-logo-luna">🌙</span>
+      <h1 class="header-logo-h1">Laboratorio de Sueños</h1>
+    </div>
+
+    <nav>
+      <ul class="nav-links">
+        <li class="nav-links-botones"><a href="index.html">Inicio</a></li>
+        <li class="nav-links-botones"><a href="mis-suenios.html">Mis sueños</a></li>
+        <li class="nav-links-botones"><a href="explorar.html">Explorar</a></li>
+      </ul>
+    </nav>
+
+  </header>
+
+  <main class="contenedor-principal">
+
+    <section class="contenedor-principal-crear-suenio">
+
+      <h2 class="contenedor-principal-crear-suenio-titulo">Escribe tu sueño</h2>
+
+      <div class="contenedor-principal-crear-suenio-formulario">
+        <input id="suenio" type="text" placeholder="Anoche soñé que..."
+          class="contenedor-principal-crear-suenio-formulario-entrada" />
+        <input id="emociones_del_suenio" type="text"
+          placeholder="Emociones sentidas dentro del sueño... (Ejemplo: miedo, felicidad....)"
+          class="contenedor-principal-crear-suenio-formulario-emociones" />
+        <input id="firma_del_autor" type="text" placeholder="Firma/Autor"
+          class="contenedor-principal-crear-suenio-formulario-firma" />
+        <input id="fecha_del_suenio" type="date" class="contenedor-principal-crear-suenio-formulario-fecha" />
+      </div>
+
+
+      <div class="contenedor-principal-crear-suenio-tipo">
+        <label><input type="radio" name="tipo_suenio" value="lucido" /> Lúcido</label>
+        <label><input type="radio" name="tipo_suenio" value="personal" /> Personal</label>
+      </div>
+
+      <button class="contenedor-principal-crear-suenio-guardar" onclick="crearSuenio()">Guardar Sueño</button>
+      <p id="msjerror" class="contenedor-principal-crear-suenio-error">Todos los campos son obligatorios.</p>
+
+
+    </section>
+
+    <section class="contenedor-principal-explorar">
+
+      <h2>Explorar sueños</h2>
+
+      <div class="contenedor-principal-explorar-tarjetas">
+
+        <div class="contenedor-principal-explorar-tarjetas-tarjeta">
+          <div class="contenedor-principal-explorar-tarjetas-tarjeta-icono">🧠</div>
+          <h3>Sueños Personales</h3>
+          <p>Ir al blog de sueños.</p>
+        </div>
+
+        <div class="contenedor-principal-explorar-tarjetas-tarjeta">
+          <div class="contenedor-principal-explorar-tarjetas-tarjeta-icono">👥</div>
+          <h3>Creencias sobre sueños</h3>
+          <p>Ideologías/mitos</p>
+        </div>
+
+        <div class="contenedor-principal-explorar-tarjetas-tarjeta">
+          <div class="contenedor-principal-explorar-tarjetas-tarjeta-icono">🌈</div>
+          <h3>Sueños Lúcidos</h3>
+          <p>Sueños con control consciente.</p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
 </body>
+
 </html>
