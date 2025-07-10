@@ -41,7 +41,7 @@ const getAllSueniosLucidos = async () => {
 
 // Crear un nuevo sueño lucido
 const createSuenioLucido = async (firma, contenido, fecha, nivel_de_lucidez) => {
-  const result = await dbClient.query('INSERT INTO suenios_lucidos (firma, contenido, fecha, nivel_de_lucidez) VALUES ($1, $2, $3, $4) RETURNING *', [firma, contenido, fecha, emociones]);
+  const result = await dbClient.query('INSERT INTO suenios_lucidos (firma, contenido, fecha, nivel_de_lucidez) VALUES ($1, $2, $3, $4) RETURNING *', [firma, contenido, fecha, nivel_de_lucidez]);
   if (result.rowCount === 0) {
     return undefined;
   }
