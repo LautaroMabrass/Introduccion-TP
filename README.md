@@ -1,12 +1,37 @@
 # Trabajo Integrador de Introducción al Desarrollo de Software: Laboratorio de Sueños
 
-Imagen de portada 
+![Logo del proyecto](./imagenes/captura-index-proyecto.png)
 
-## Descripción del proyecto
+# Descripción del proyecto
 
-Sitio web para registrar y explorar sueños personales, colectivos y lúcidos, con vínculos a emociones, simbología de los mismos y psicología. 
+Sitio web para registrar y explorar sueños personales, colectivos y lúcidos, con vínculos a emociones, simbología y psicología.
 
-Capturas de pantalla
+---
 
-## Configuración y Levantamiento del Sistema
+# Estructura de la Base de Datos
 
+![Estructura de la db](./imagenes/captura-db.jpeg)
+
+> Las sentencias SQL se encuentran en la carpeta `backend/scripts`.
+
+---
+
+# Cómo arrancar el proyecto
+
+Recomendacion: Antes de levantar el proyecto debes hacer ```bash npm install``` dentro de backend/ para instalar todas ls dependecias del proyecto, ademas de tener instalado Docker.
+
+## 1. Levantar la base de datos con Docker
+
+Ejecutá en la terminal:
+
+```bash
+make start-db
+```
+
+## 2. Levantar el backend (Api)
+
+Ejecutá en la terminal:
+
+```bash
+make start-backend
+```
