@@ -1,264 +1,145 @@
-const sueniosApi = 'http://localhost:3000/api/suenios-personales';
-const comentariosPersonalesApi = 'http://localhost:3000/api/comentarios-personales';
-const divTarjetaSuenioInformacion = document.getElementById('tarjeta-suenio-append-informacion');
-const sueniosLucidosApi = 'http://localhost:3000/api/suenios-lucidos';
-const comentariosLucidosApi = 'http://localhost:3000/api/comentarios-suenios-lucidos';
+const suenioApi = 'http://localhost:3000/api/suenios';
+const apiComentarios = 'http://localhost:3000/api/comentarios';
+const divContenedorPrincipal = document.getElementById("tarjeta-suenio-append-informacion");
+const usuario = localStorage.getItem('usuarioLogueado');
 
-// Primer fetch: obtener los sueños
-fetch(sueniosApi)
-  .then(response => {
+fetch(suenioApi).then(response => {
     if (response.ok) {
-        return response.json();}
-    else {
-        console.error('Error al obtener los sueños');}
-  })
-  .then(suenios => {
-    console.log('Sueños obtenidos:', suenios);
-
-    suenios.forEach(suenio => {
-        const contenedorSuenio = document.createElement('div');
-        contenedorSuenio.classList.add('contenedor-principal-explorar-tarjetas-suenio');
-
-        const h3 = document.createElement('h3');
-        h3.textContent = suenio.contenido;
-        h3.classList.add('contenedor-principal-explorar-tarjetas-suenio-historia');
-
-        const pEmocion = document.createElement('p');
-        pEmocion.textContent = `Emociones: ${suenio.emociones}`;
-        pEmocion.classList.add('contenedor-principal-explorar-tarjetas-suenio-emocion');
-
-        const pTipoSuenio = document.createElement('p');
-        pTipoSuenio.textContent = "Tipo de sueño: Común"
-        pTipoSuenio.classList.add('contenedor-principal-explorar-tarjetas-suenio-tipo_de_suenio');
-
-
-        const pFirma = document.createElement('p');
-        pFirma.textContent = `Autor: ${suenio.firma}`;
-        pFirma.classList.add('contenedor-principal-explorar-tarjetas-suenio-firma');
-
-        const fecha = new Date(suenio.fecha);
-        const dia = String(fecha.getDate());
-        const mes = String(fecha.getMonth() + 1);
-        const anio = fecha.getFullYear();
-        const fechaFormateada = `${dia}/${mes}/${anio}`;
-
-        const pFecha = document.createElement('p');
-        pFecha.textContent = `Publicado el: ${fechaFormateada}`;
-        pFecha.classList.add('contenedor-principal-explorar-tarjetas-suenio-fecha');
-
-        contenedorSuenio.appendChild(h3);
-        contenedorSuenio.appendChild(pEmocion);
-        contenedorSuenio.appendChild(pTipoSuenio);
-        contenedorSuenio.appendChild(pFirma);
-        contenedorSuenio.appendChild(pFecha);
-
-    // Segundo fetch: obtener los comentarios personales para cada sueño Comun
-    
-    fetch(`${comentariosPersonalesApi}/${suenio.id}`)
-        .then(response => {
-        if (response.ok) {
-            return response.json();}
-        else {
-            console.error('Error al obtener los comentarios');}
-        })
-        .then(comentarios => {
-            comentarios.forEach(comentario => {
-                const divComentario = document.createElement('div');
-                divComentario.classList.add('contenedor-principal-explorar-tarjetas-suenio-lista_comentarios');
-
-                const pComentario = document.createElement('p');
-                pComentario.classList.add('contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-anonimo');
-                pComentario.textContent = `💬 ${comentario.contenido}`;
-
-                const botonEliminar = document.createElement('button');
-                botonEliminar.classList.add('contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-eliminar');
-                botonEliminar.textContent = '❌';
-                botonEliminar.onclick = () => eliminarComentario(divComentario, comentario.id);
-
-                divComentario.appendChild(pComentario);
-                divComentario.appendChild(botonEliminar);
-                contenedorSuenio.appendChild(divComentario);
-          });
-        })
-        const divComentar = document.createElement('div');
-        divComentar.classList.add('contenedor-principal-explorar-tarjetas-suenio-comentarios');
-
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.placeholder = 'Comentar de forma anónima...';
-        input.classList.add('contenedor-principal-explorar-tarjetas-suenio-comentarios-input');
-
-        const boton = document.createElement('button');
-        boton.textContent = 'Enviar';
-        boton.classList.add('contenedor-principal-explorar-tarjetas-suenio-comentarios-boton');
-        boton.onclick = () => enviarComentario(input, suenio.id, contenedorSuenio);
-
-        divComentar.appendChild(input);
-        divComentar.appendChild(boton);
-
-        contenedorSuenio.appendChild(divComentar);
-        divTarjetaSuenioInformacion.appendChild(contenedorSuenio);
-
-
-    });
-  }).catch(e => {
-        console.error(e);
-    });
-
-// Tercer fetch: obtener sueños lúcidos
-fetch(sueniosLucidosApi)
-  .then(response => {
-    if (response.ok) {
-        return response.json();}
-    else {
-        console.error('Error al obtener los sueños lúcidos');}
-  })
-  .then(suenios => {
-    console.log('Sueños lúcidos obtenidos:', suenios);
-
-    suenios.forEach(suenio => {
-        const contenedorSuenio = document.createElement('div');
-        contenedorSuenio.classList.add('contenedor-principal-explorar-tarjetas-suenio');
-
-        const h3 = document.createElement('h3');
-        h3.textContent = suenio.contenido;
-        h3.classList.add('contenedor-principal-explorar-tarjetas-suenio-historia');
-
-        const pTipo = document.createElement('p');
-        pTipo.textContent = "Tipo de sueño: Lúcido";
-        pTipo.classList.add('contenedor-principal-explorar-tarjetas-suenio-tipo_de_suenio');
-
-        const pNivel = document.createElement('p');
-        pNivel.textContent = `Nivel de control: ${suenio.nivel_de_lucidez}`;
-        pNivel.classList.add('contenedor-principal-explorar-tarjetas-suenio-nivel');
-
-        const pFirma = document.createElement('p');
-        pFirma.textContent = `Autor: ${suenio.firma}`;
-        pFirma.classList.add('contenedor-principal-explorar-tarjetas-suenio-firma');
-
-        const fecha = new Date(suenio.fecha);
-        const dia = String(fecha.getDate());
-        const mes = String(fecha.getMonth() + 1);
-        const anio = fecha.getFullYear();
-        const fechaFormateada = `${dia}/${mes}/${anio}`;
-
-        const pFecha = document.createElement('p');
-        pFecha.textContent = `Publicado el: ${fechaFormateada}`;
-        pFecha.classList.add('contenedor-principal-explorar-tarjetas-suenio-fecha');
-
-        contenedorSuenio.appendChild(h3);
-        contenedorSuenio.appendChild(pTipo);
-        contenedorSuenio.appendChild(pNivel);
-        contenedorSuenio.appendChild(pFirma);
-        contenedorSuenio.appendChild(pFecha);
-
-        // Cuarto fetch: obtener comentarios de sueños lúcidos
-        fetch(`${comentariosLucidosApi}/${suenio.id}`)
-            .then(response => {
-            if (response.ok) {
-                return response.json();}
-            else {
-                console.error('Error al obtener los comentarios lúcidos');}
-            })
-            .then(comentarios => {
-                comentarios.forEach(comentario => {
-                    const divComentario = document.createElement('div');
-                    divComentario.classList.add('contenedor-principal-explorar-tarjetas-suenio-lista_comentarios');
-
-                    const pComentario = document.createElement('p');
-                    pComentario.classList.add('contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-anonimo');
-                    pComentario.textContent = `💬 ${comentario.contenido}`;
-
-                    const botonEliminar = document.createElement('button');
-                    botonEliminar.classList.add('contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-eliminar');
-                    botonEliminar.textContent = '❌';
-                    botonEliminar.onclick = () => eliminarComentarioLucido(divComentario, comentario.id);
-
-                    divComentario.appendChild(pComentario);
-                    divComentario.appendChild(botonEliminar);
-                    contenedorSuenio.appendChild(divComentario);
-              });
-            })
-
-        const divComentar = document.createElement('div');
-        divComentar.classList.add('contenedor-principal-explorar-tarjetas-suenio-comentarios');
-
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.placeholder = 'Comentar de forma anónima...';
-        input.classList.add('contenedor-principal-explorar-tarjetas-suenio-comentarios-input');
-
-        const boton = document.createElement('button');
-        boton.textContent = 'Enviar';
-        boton.classList.add('contenedor-principal-explorar-tarjetas-suenio-comentarios-boton');
-        boton.onclick = () => enviarComentarioLucido(input, suenio.id, contenedorSuenio);
-
-        divComentar.appendChild(input);
-        divComentar.appendChild(boton);
-
-        contenedorSuenio.appendChild(divComentar);
-        divTarjetaSuenioInformacion.appendChild(contenedorSuenio);
-    });
-  }).catch(e => {
-        console.error(e);
-    });
-
-// Función para enviar comentarios
-function enviarComentario(input, suenio_id, contenedorSuenio) {
-    const valor = input.value.trim();
-    if (valor === '') {
-        alert('Por favor, escribe un comentario antes de enviar.');
+        return response.json()
+    } else {
+        console.log('error')
         return;
     }
-    const comentario = {
-        contenido: valor,
-        suenios_personales_id: suenio_id
-    };
-    fetch(comentariosPersonalesApi, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }, 
-        body: JSON.stringify(comentario)
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            console.error('Error al enviar el comentario');
-        }
-    }).then(data => {
-        const divComentario = document.createElement('div');
-        divComentario.classList.add('contenedor-principal-explorar-tarjetas-suenio-lista_comentarios');
 
-        const pComentario = document.createElement('p');
-        pComentario.classList.add('contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-anonimo');
-        pComentario.textContent = `💬 ${data.contenido}`;
+}).then(data => {
+    data.forEach(element => {
 
-        const botonEliminar = document.createElement('button');
-        botonEliminar.classList.add('contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-eliminar');
-        botonEliminar.textContent = '❌';
-        botonEliminar.onclick = () => eliminarComentario(divComentario, data.id);
+        // creamos de afuera para adentro
+        const divContenedorDeSuenios = document.createElement('div');
+        divContenedorDeSuenios.className = 'contenedor-principal-explorar-tarjetas-suenio';
 
-        divComentario.appendChild(pComentario);
-        divComentario.appendChild(botonEliminar);
-    
-        contenedorSuenio.appendChild(divComentario);
-        input.value = ''; 
-    }).catch(e => {
-        console.error(e);
+        const titulo = document.createElement("h2");
+        titulo.className = 'contenedor-principal-explorar-tarjetas-suenio-historia';
+        titulo.textContent = element.titulo;
+
+        const historia = document.createElement("h3");
+        historia.className = 'contenedor-principal-explorar-tarjetas-suenio-historia';
+        historia.textContent = element.contenido;
+
+        const fecha = new Date(element.fecha);
+        const fecha_elemento = document.createElement("p");
+        fecha_elemento.className = 'contenedor-principal-explorar-tarjetas-suenio-fecha';
+        fecha_elemento.textContent = `Publicado el: ${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
+
+        const emociones = document.createElement("p");
+        emociones.className = 'contenedor-principal-explorar-tarjetas-suenio-emocion';
+        emociones.textContent = element.emociones;
+
+        const nivel_lucidez = document.createElement("p");
+        nivel_lucidez.className = 'contenedor-principal-explorar-tarjetas-suenio-lucidez';
+        nivel_lucidez.textContent = element.nivel_lucidez;
+
+        // Agregar elementos al contenedor del sueño
+        divContenedorDeSuenios.appendChild(titulo);
+        divContenedorDeSuenios.appendChild(historia);
+        divContenedorDeSuenios.appendChild(nivel_lucidez);
+        divContenedorDeSuenios.appendChild(emociones);
+        divContenedorDeSuenios.appendChild(fecha_elemento);
+
+        // Fetch a los comentarios relacionados al sueño
+        fetch(apiComentarios + `/${element.id}`).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                console.log('Error en los comentarios')
+            }
+        }).then(comentarios => {
+            comentarios.forEach(comentario => {
+                const divContenedorComentario = document.createElement("div");
+                divContenedorComentario.className = 'contenedor-principal-explorar-tarjetas-suenio-lista_comentarios';
+
+                const pComentario = document.createElement("p");
+                pComentario.className = 'contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-anonimo';
+                pComentario.textContent = `💬 ${comentario.contenido}`;
+
+                const fecha_com = new Date(comentario.fecha);
+                const fecha_comentario = document.createElement("p");
+                fecha_comentario.className = 'contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-fecha';
+                fecha_comentario.textContent = `Publicado el: ${fecha_com.getDate()}/${fecha_com.getMonth() + 1}/${fecha_com.getFullYear()}`;
+
+                divContenedorComentario.appendChild(pComentario);
+                divContenedorComentario.appendChild(fecha_comentario);
+
+                // Si el comentario es del usuario logueado, mostrar boton eliminar
+                if (comentario.autor === usuario) {
+                    const botonEliminar = document.createElement("button");
+                    botonEliminar.className = 'contenedor-principal-explorar-tarjetas-suenio-lista_comentarios-eliminar';
+                    botonEliminar.textContent = "❌";
+                    botonEliminar.onclick = () => EliminarComentario(divContenedorComentario, comentario.id);
+                    divContenedorComentario.appendChild(botonEliminar);
+                }
+                divContenedorDeSuenios.appendChild(divContenedorComentario);
+            }
+
+            )
+            const divEnviarBoton = document.createElement("div");
+            divEnviarBoton.className = "contenedor-principal-explorar-tarjetas-suenio-comentarios";
+
+            const inputComentario = document.createElement("input");
+            inputComentario.type = "text";
+            inputComentario.placeholder = "Comentar de forma anónima...";
+            inputComentario.className = "contenedor-principal-explorar-tarjetas-suenio-comentarios-input";
+
+            const botonEnviar = document.createElement("button");
+            botonEnviar.className = "contenedor-principal-explorar-tarjetas-suenio-comentarios-boton";
+            botonEnviar.textContent = "Enviar";
+            botonEnviar.onclick = () => CrearComentario(element.id, usuario, inputComentario);
+
+            divEnviarBoton.appendChild(inputComentario)
+            divEnviarBoton.appendChild(botonEnviar)
+            divContenedorDeSuenios.appendChild(divEnviarBoton)
+        })
+
+        divContenedorPrincipal.appendChild(divContenedorDeSuenios);
     });
-}
+})
 
-function eliminarComentario(divComentario, comentarioId) {
-    fetch(`${comentariosPersonalesApi}/${comentarioId}`, {
+
+const EliminarComentario = (divContCom, comentario_id) => {
+    fetch(`${apiComentarios}/${comentario_id}`, {
         method: 'DELETE'
     })
-    .then(response => {
-        if (response.ok) {
-            divComentario.remove();
-        } else {
-            console.error('Error al eliminar el comentario');
+        .then(response => {
+            if (response.ok) {
+                divContCom.remove();
+            } else {
+                console.error("No se pudo eliminar el comentario");
+            }
+        })
+}
+
+
+const CrearComentario = (suenio_id, usuario, inputComentario) => {
+    const contenido = inputComentario.value.trim();
+    if (contenido) {
+        const nuevoComentario = {
+            usuario: usuario,
+            suenio: suenio_id,
+            contenido: contenido
         }
-    });
+        console.log('Nuevo comentario:', nuevoComentario);
+        fetch(apiComentarios, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(nuevoComentario)
+        }).then(response => {
+            if (response.ok) {
+                console.log('Comentario creado con exito');
+                location.reload()
+                inputComentario.value = "";
+            } else {
+                console.log('Error al crear contenido')
+            }
+        })
+    }
 }
