@@ -1,120 +1,78 @@
-const sueniosApi = 'http://localhost:3000/api/suenios-personales';
-const sueniosLucidosApi = 'http://localhost:3000/api/suenios-lucidos';
+const usuarioNombre = localStorage.getItem('usuarioLogueado');
+const suenioApi = 'http://localhost:3000/api/suenios';
 
-const mensajeError = document.getElementById('msjerror');
-const mensajeExito = document.getElementById('msjexito');
+const msjexito = document.getElementById("msjexito");
+const msjerror = document.getElementById("msjerror");
+const botonIndex = document.getElementById("boton-index");
+const botonLogin = document.getElementById("boton-login");
+const botonRegister = document.getElementById("boton-register");
+const botonExplorar = document.getElementById("boton-explorar");
+const botonMisSuenios = document.getElementById("boton-suenios");
+const botonCerrar = document.getElementById("boton-cerrar");
+const tarjetaSueniosLucidos = document.getElementById("tarjeta-suenios-lucidos");
+const tarjetaCreencia = document.getElementById("tarjeta-creencias");
+const tarjetaSuenios = document.getElementById("tarjeta-suenios")
 
-
-const emocionesInput = document.getElementById('emociones_del_suenio');
-const escalaLucidez = document.getElementById('escala_lucidez');
+if (usuarioNombre) {
+    botonLogin.style.display = "none";
+    botonRegister.style.display = "none";
+} else {
+    botonExplorar.style.display = "none";
+    botonMisSuenios.style.display = "none";
+    botonCerrar.style.display = "none";
+    tarjetaSueniosLucidos.href = "login.html"
+    tarjetaCreencia.href = "login.html"
+    tarjetaSuenios.href = "login.html"
+}
 
 const crearSuenio = () => {
+    msjexito.style.display = "none";
+    msjerror.style.display = "none";
 
-    const tipo = document.querySelector('input[name="tipo_suenio"]:checked').value;
-    const contenido = document.getElementById('suenio').value.trim();
-    const firma = document.getElementById('firma_del_autor').value.trim();
-    const fecha = document.getElementById('fecha_del_suenio').value;
-
-    if (!contenido || !firma || !fecha) {
-        mensajeError.style.display = 'block';
-        mensajeExito.style.display = 'none';
+    if (!usuarioNombre) {
+        location.href = 'login.html';
         return;
     }
 
-    mensajeError.style.display = 'none';
+    const titulo = document.getElementById("titulo_suenio").value.trim();
+    const contenido = document.getElementById("suenio").value.trim();
+    const emociones = document.getElementById("emociones_del_suenio").value.trim();
+    const nivel_lucidez = document.getElementById("nivel_lucidez").value.trim();
+    const fecha = document.getElementById("fecha_del_suenio").value.trim();
 
-    if (tipo === 'personal') {
-        const emociones = emocionesInput.value.trim();
+    if (!titulo || !contenido || !emociones || !nivel_lucidez || !fecha) {
+        msjerror.style.display = "block";
+        return;
+    }
 
-        if (!emociones) {
-            mensajeError.style.display = 'block';
-            mensajeExito.style.display = 'none';
-            return;
-        }
+    const nuevoSuenio = {
+        usuario: usuarioNombre,
+        titulo,
+        contenido,
+        emociones,
+        fecha,
+        nivel_lucidez
+    };
 
-        mensajeError.style.display = 'none';
-
-        const nuevoSuenio = {
-            firma,
-            contenido,
-            fecha,
-            emociones
-        };
-        fetch(sueniosApi, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(nuevoSuenio)
-        })
+    fetch(suenioApi, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(nuevoSuenio)
+    })
         .then(response => {
             if (response.ok) {
-                return response.json();
+                msjexito.style.display = "block";
+                document.getElementById("titulo_suenio").value = "";
+                document.getElementById("suenio").value = "";
+                document.getElementById("emociones_del_suenio").value = "";
+                document.getElementById("fecha_del_suenio").value = "";
             } else {
-                console.log('Error al crear el sueño');
+                msjerror.style.display = "block";
+                console.error('Error en el servidor');
             }
         })
-        .then(data => {
-            console.log('Sueño creado:', data);
-            mensajeExito.style.display = 'block';
-
-            // limpiar los campos del formulario
-            document.getElementById('suenio').value = '';
-            document.getElementById('firma_del_autor').value = '';
-            document.getElementById('emociones_del_suenio').value = '';
-            document.getElementById('fecha_del_suenio').value = '';
-            const radios = document.querySelectorAll('input[name="tipo_suenio"]');
-            radios.forEach(radio_input => radio_input.checked = false);
-        })
-        .catch(error => {
-            console.error('Error en la solicitud:', error);
+        .catch(e => {
+            msjerror.style.display = "block";
+            console.error(e);
         });
-    }
-    else if (tipo === 'lucido') {
-        const nivel_de_lucidez = document.getElementById('nivel_lucidez').value;
-        const nuevoSueniolucido = {
-            firma,
-            contenido,
-            fecha,
-            nivel_de_lucidez
-        };
-        fetch(sueniosLucidosApi, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(nuevoSueniolucido)
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                console.log('Error al crear el sueño lúcido');
-            }
-        })
-        .then(data => {
-            mensajeExito.style.display = 'block';
-            console.log(data);
-
-            // limpiar los campos del formulario
-            document.getElementById('suenio').value = '';
-            document.getElementById('firma_del_autor').value = '';
-            document.getElementById('emociones_del_suenio').value = '';
-            document.getElementById('fecha_del_suenio').value = '';
-            const radios = document.querySelectorAll('input[name="tipo_suenio"]');
-            radios.forEach(radio_input => radio_input.checked = false);
-        })
-        .catch(error => {
-            console.error('Error en la solicitud:', error);
-        });
-    }
-};
-
-
-// Cambiar inputs dependiendo la seleccion (lucidez o comun)
-const actualizarCampos = () => {
-    const tipoSeleccionado = document.querySelector('input[name="tipo_suenio"]:checked').value;
-    if (tipoSeleccionado === 'lucido') {
-      emocionesInput.style.display = 'none';
-      escalaLucidez.style.display = 'block';
-    } else {
-      emocionesInput.style.display = 'block';
-      escalaLucidez.style.display = 'none';
-    }
 };
