@@ -25,9 +25,21 @@ CREATE TABLE comentarios (
     fecha DATE DEFAULT CURRENT_DATE
 );
 
+CREATE TABLE objetos_en_suenios (
+    id SERIAL PRIMARY KEY,
+    suenio INTEGER REFERENCES suenios(id) ON DELETE CASCADE,
+    usuario INTEGER REFERENCES usuarios(id),
+    nombre VARCHAR(100),
+    descripcion TEXT,
+    simbolismo TEXT,
+    frecuencia_aparicion INTEGER,
+    asociado_a_creencia BOOLEAN DEFAULT FALSE
+);
+
 CREATE TABLE usuarios (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(36) UNIQUE,
-    biografia VARCHAR(255),
+    biografia VARCHAR(255) DEFAULT NULL,
     clave_hash VARCHAR(255)
 );
+
