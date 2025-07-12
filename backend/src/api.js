@@ -1,200 +1,170 @@
-// Express imports
+// Creacion de API
+
 const express = require('express');
 const app = express();
 const port = 3000;
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 app.use(express.json());
 app.use(cors());
 
+
 // Importar funciones de acceso a la base de datos
 const {
-  createSuenio,
-  getAllSuenios,
-  getComentariosRelacionadosASuenios,
-  createComentarioPersonal,
-  deleteOneComentarioPersonal,
-  getAllSueniosLucidos,
-  createSuenioLucido,
-  getComentariosRelacionadosASueniosLucidos,
-  createComentarioSuenioLucido,
-  deleteOneComentarioSuenioLucido
+  getAllDreams,
+  getDreamRelatedToUser,
+  createNewDream,
+  getAllCommentsRelatedToDream,
+  createComment,
+  deleteComment,
+  createNewUser,
+  getOneUser
 } = require('./acceso-db');
-
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
 
-// Acceso a la base de datos para los sueños personales
-
-// Crear un nuevo sueño (Sueños personales UNICAMENTE)
-app.post('/api/suenios-personales', async (req, res) => {
+// Endpoint para obtener todos los suenios
+app.get('/api/suenios', async (req, res) => {
   try {
-    const firma = req.body.firma;
-    const contenido = req.body.contenido;
-    const fecha = req.body.fecha;
-    const emociones = req.body.emociones;
-
-    if (!firma || !contenido || !fecha || !emociones) {
-      return res.status(400).json({ error: 'Falta información requerida' });
-    }
-
-    const suenio = await createSuenio(firma, contenido, fecha, emociones);
-    if (!suenio) {
-      return res.status(500).json({ error: 'Error al crear el sueño' });
-    }
-
-    return res.status(201).json(suenio);
+    const sueños = await getAllDreams();
+    return res.status(200).json(sueños);
   } catch (e) {
     console.error(e);
-    res.status(500).json({ e: "Error del servidor" });
+    return res.status(500).json({ error: 'Error al obtener los sueños' });
   }
 });
 
-// obtener todos los sueños
-app.get('/api/suenios-personales', async (req, res) => {
+// Endpoint para crear un nuevo sueño
+app.post('/api/suenios', async (req, res) => {
   try {
-    const suenios = await getAllSuenios();
-    return res.status(200).json(suenios);
+    const usuario = req.body.usuario
+    const titulo = req.body.titulo
+    const contenido = req.body.contenido
+    const emociones = req.body.emociones
+    const fecha = req.body.fecha
+    const nivel_lucidez = req.body.nivel_lucidez
+    if (!usuario || !titulo || !contenido || !fecha || !emociones || !nivel_lucidez) {
+      return res.status(400).json({ error: 'Falta información requerida' });
+    }
+    const usuario_id = await getOneUser(usuario)
+    const nuevoSuenio = await createNewDream(usuario_id.id, titulo, contenido, fecha, emociones, nivel_lucidez);
+    return res.status(201).json(nuevoSuenio);
   } catch (e) {
-    console.error("Error al obtener los sueños:", e);
-    return res.status(500).json({ error: 'Error del servidor' });
+    console.error(e);
+    return res.status(500).json({ error: 'Error al crear el sueño' });
   }
-  }
-);
+});
 
-// Obtener comentarios relacionados a un sueño especifico
-app.get('/api/comentarios-personales/:id', async (req, res) => {
+// Endpoint para buscar suenios con id de usuarios
+app.get('/api/suenios/usuario/:id', async (req, res) => {
   try {
-    const id = req.params.id;
-    const comentarios = await getComentariosRelacionadosASuenios(id);
+    const user_id = req.params.id
+    const sueños = await getDreamRelatedToUser(user_id);
+    return res.status(200).json(sueños);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ error: 'Error al obtener los sueños del usuario' });
+  }
+});
+
+// Endpoint para obtener los comentarios relacionados a un sueño
+app.get('/api/comentarios/:suenio_id', async (req, res) => {
+  try {
+    const comentarios = await getAllCommentsRelatedToDream(req.params.suenio_id);
     return res.status(200).json(comentarios);
   } catch (e) {
     console.error(e);
-    return res.status(500).json({ error: 'Error del servidor' });
+    return res.status(500).json({ error: 'Error al obtener comentarios' });
   }
 });
 
-// Acceso a la base de datos para los comentarios de sueños personales
-
-// Crear un nuevo comentario en un sueño personal
-app.post('/api/comentarios-personales', async (req, res) => {
+// End point para crear un comentario
+app.post('/api/comentarios', async (req, res) => {
   try {
-    const contenido = req.body.contenido;
-    const suenios_personales_id = req.body.suenios_personales_id;
-
-    if (!contenido || !suenios_personales_id) {
+    const usuario = req.body.usuario
+    const suenio = req.body.suenio
+    const contenido = req.body.contenido
+    if (!usuario || !suenio || !contenido) {
       return res.status(400).json({ error: 'Falta información requerida' });
     }
-
-    const result = await createComentarioPersonal(contenido, suenios_personales_id);
-    if (!result) {
-      return res.status(500).json({ error: 'Error al crear el comentario' });
-    }
-    return res.status(201).json(result);
-
+    const usuario_id = await getOneUser(usuario)
+    const comentario = await createComment(usuario_id.id, suenio, contenido);
+    return res.status(201).json(comentario);
   } catch (e) {
     console.error(e);
-    res.status(500).json({ error: 'Error del servidor' });
+    return res.status(500).json({ error: 'Error al crear el comentario' });
   }
 });
 
-// Eliminar un comentario en sueños personales
-app.delete('/api/comentarios-personales/:id', async (req, res) => {
+// Endpoint para eliminar un comentario
+app.delete('/api/comentarios/:id', async (req, res) => {
   try {
-    const id = req.params.id;
-    const result = await deleteOneComentarioPersonal(id);
-    if (!result) {
+    comentario_id = req.params.id
+    const eliminado = await deleteComment(comentario_id);
+    if (!eliminado) {
       return res.status(404).json({ error: 'Comentario no encontrado' });
     }
     return res.status(200).json({ message: 'Comentario eliminado' });
   } catch (e) {
     console.error(e);
-    return res.status(500).json({ error: 'Error del servidor' });
+    return res.status(500).json({ error: 'Error al eliminar el comentario' });
   }
 });
 
-// Acceso a la base de datos para los sueños lucidos
-
-// Obtener todos los sueños lucidos
-app.get('/api/suenios-lucidos', async (req, res) => {
+// Endpoint para crear un nuevo usuario
+app.post('/api/register', async (req, res) => {
   try {
-    const sueniosLucidos = await getAllSueniosLucidos();
-    return res.status(200).json(sueniosLucidos);
-  } catch (e) {
-    console.error(e);
-    return res.status(500).json({ error: 'Error del servidor' });
-  }}
-);
-
-// Crear un nuevo sueño lucido
-app.post('/api/suenios-lucidos', async (req, res) => {
-  try {
-    const firma = req.body.firma;
-    const contenido = req.body.contenido;
-    const fecha = req.body.fecha;
-    const emociones = req.body.emociones;
-    if (!firma || !contenido || !fecha || !emociones) {
+    const username = req.body.username;
+    const clave = req.body.clave;
+    if (!username || !clave) {
       return res.status(400).json({ error: 'Falta información requerida' });
     }
-    const respuesta = await createSuenioLucido(firma, contenido, fecha, emociones);
-    if (!respuesta) {
-      return res.status(500).json({ error: 'Error al crear el sueño lucido' });
+    // Verifico si el usuario ya existe
+    const existe = await getOneUser(username);
+    if (existe) {
+      return res.status(409).json({ error: 'El nombre de usuario ya está en uso' });
     }
-    return res.status(201).json(respuesta);
+    const nuevoUsuario = await createNewUser(username, clave);
+    return res.status(201).json(nuevoUsuario);
   } catch (e) {
     console.error(e);
-    return res.status(500).json({ error: 'Error del servidor' });
+    return res.status(500).json({ error: 'Error al crear el usuario' });
   }
 });
 
-// Obtener comentarios relacionados a un sueño lucido especifico
-app.get('/api/comentarios-suenios-lucidos/:id', async (req, res) => {
+// Endpoit para iniciar sesion
+
+app.post('/api/login', async (req, res) => {
   try {
-    const id = req.params.id;
-    const comentarios = await getComentariosRelacionadosASueniosLucidos(id);
-    return res.status(200).json(comentarios);
+    const username = req.body.username
+    const clave = req.body.clave
+
+    if (!username || !clave) {
+      return res.status(400).json({ error: 'Faltan datos' });
+    }
+
+    const usuario = await getOneUser(username);
+    if (!usuario) {
+      return res.status(401).json({ error: 'Usuario o contraseña incorrectos' });
+    }
+
+    const coincide = await bcrypt.compare(clave, usuario.clave_hash);
+
+    if (!coincide) {
+      return res.status(401).json({ error: 'Usuario o contraseña incorrectos' });
+    }
+    return res.status(200).json({ usuario: usuario.nombre });
+
   } catch (e) {
-    console.error(e);
-    return res.status(500).json({ error: 'Error del servidor' });
+    console.error('Error en /api/login:', e);
+    return res.status(500).json({ error: 'Error al iniciar sesión' });
   }
 });
 
-// Crear un nuevo comentario en un sueño lucido
-app.post('/api/comentarios-suenios-lucidos', async (req, res) => {
-  try {
-    const contenido = req.body.contenido;
-    const suenios_lucidos_id = req.body.suenios_lucidos_id;
-    if (!contenido || !suenios_lucidos_id) {
-      return res.status(400).json({ error: 'Falta información requerida' });
-    }
-    const result = await createComentarioSuenioLucido(contenido, suenios_lucidos_id);
-    if (!result) {
-      return res.status(500).json({ error: 'Error al crear el comentario' });
-    }
-    return res.status(201).json(result);
-  } catch (e) {
-    console.error(e);
-    return res.status(500).json({ error: 'Error del servidor' });
-  }
-});
-
-// Eliminar un comentario en sueños lucidos
-app.delete('/api/comentarios-suenios-lucidos/:id', async (req, res) => {
-  try {
-    const id = req.params.id;
-    const result = await deleteOneComentarioSuenioLucido(id);
-    if (!result) {
-      return res.status(404).json({ error: 'Comentario no encontrado' });
-    }
-    return res.status(200).json({ message: 'Comentario eliminado' });
-  } catch (e) {
-    console.error(e);
-    return res.status(500).json({ error: 'Error del servidor' });
-  }
-});
-
+// Inciar server
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`API LISTA`);
 });
