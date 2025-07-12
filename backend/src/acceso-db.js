@@ -5,99 +5,94 @@ const { Pool } = require('pg')
 const dbClient = new Pool({
   user: "postgres",
   host: "localhost",
-  database: "dbname",
+  database: "suenios",
   password: "postgres",
   port: 5432,
 });
 
-// Funciones de acceso a la base de datos para los sueños personales
+// Creacion de hash para usuarios
+const bcrypt = require('bcrypt');
 
-// Obtener todos los sueños personales
-const getAllSuenios = async () => {
-  const result = await dbClient.query('SELECT * FROM suenios_personales');
+// Funciones de acceso a la base de datos para los sueños
+
+// Funcion para obtener todos los sueños todos los sueños
+const getAllDreams = async () => {
+  const result = await dbClient.query('SELECT * FROM suenios');
   if (result.rowCount === 0) {
     return [];
   }
   return result.rows;
 }
 
-// Crear un nuevo sueño personal
-const createSuenio = async (firma, contenido, fecha, emociones) => {
-  const result = await dbClient.query('INSERT INTO suenios_personales (firma, contenido, fecha, emociones) VALUES ($1, $2, $3, $4) RETURNING *', [firma, contenido, fecha, emociones]);
+// Funcion para la creacion de un nuevo sueño
+
+const createNewDream = async (usuario, titulo, contenido, fecha, emociones, nivel_lucidez) => {
+  const result = await dbClient.query('INSERT INTO suenios (usuario, titulo, contenido, fecha, emociones, nivel_lucidez) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [usuario, titulo, contenido, fecha, emociones, nivel_lucidez]);
   if (result.rowCount === 0) {
     return undefined;
   }
   return result.rows[0];
 }
 
-// Funciones de acceso a la base de datos para los sueños lucidos
-const getAllSueniosLucidos = async () => {
-  const result = await dbClient.query('SELECT * FROM suenios_lucidos');
+// FUncion para obtener el sueño de un usuario
+
+const getDreamRelatedToUser = async (user_id) => {
+  const result = await dbClient.query('SELECT * from suenios WHERE usuario = $1 ', [user_id]);
   if (result.rowCount === 0) {
     return [];
   }
   return result.rows;
-}
-
-// Crear un nuevo sueño lucido
-const createSuenioLucido = async (firma, contenido, fecha, nivel_de_lucidez) => {
-  const result = await dbClient.query('INSERT INTO suenios_lucidos (firma, contenido, fecha, nivel_de_lucidez) VALUES ($1, $2, $3, $4) RETURNING *', [firma, contenido, fecha, nivel_de_lucidez]);
-  if (result.rowCount === 0) {
-    return undefined;
-  }
-  return result.rows[0];
 }
 
 // Funciones de acceso a la base de datos para los comentarios
 
-// Obtener comentarios relacionados a un sueño específico (Sueños personales UNICAMENTE)
-const getComentariosRelacionadosASuenios = async (id_suenio) => {
-  const result = await dbClient.query('SELECT * FROM comentarios_personales WHERE suenios_personales_id = $1', [id_suenio]);
+// Obtener comentarios relacionados a un sueño específico
+const getAllCommentsRelatedToDream = async (id_suenio) => {
+  const result = await dbClient.query(`
+    SELECT comentarios.id, comentarios.contenido, comentarios.fecha, usuarios.nombre AS autor
+    FROM comentarios
+    JOIN usuarios ON comentarios.usuario = usuarios.id
+    WHERE comentarios.suenio = $1;
+  `, [id_suenio]);
   if (result.rowCount === 0) {
     return [];
   }
   return result.rows;
 }
 
-// Crear un nuevo comentario personal (Sueños personales UNICAMENTE)
-const createComentarioPersonal = async (contenido, suenios_personales_id) => {
-  const result = await dbClient.query('INSERT INTO comentarios_personales (contenido, suenios_personales_id) VALUES ($1, $2) RETURNING *', [contenido, suenios_personales_id]);
+// Crear un nuevo comentario personal 
+const createComment = async (usuario_id, suenio_id, contenido) => {
+  const result = await dbClient.query('INSERT INTO comentarios (usuario, suenio, contenido) VALUES ($1, $2, $3) RETURNING *', [usuario_id, suenio_id, contenido]);
   if (result.rowCount === 0) {
     return undefined;
   }
   return result.rows[0];
 }
 
-// Eliminar un comentario personal (Sueños personales UNICAMENTE)
-const deleteOneComentarioPersonal = async (id_comentario) => {
-  const result = await dbClient.query('DELETE FROM comentarios_personales WHERE id = $1 RETURNING *', [id_comentario]);
+// Eliminar un comentario personal
+const deleteComment = async (id_comentario) => {
+  const result = await dbClient.query('DELETE FROM comentarios WHERE id = $1 RETURNING *', [id_comentario]);
   if (result.rowCount === 0) {
     return undefined;
   }
   return result.rows[0];
 }
 
-// Obtener un comentario a un sueño especifico (Sueños lucidos UNICAMENTE)
-const getComentariosRelacionadosASueniosLucidos = async (id_suenio) => {
-  const result = await dbClient.query('SELECT * FROM comentarios_lucidos WHERE suenios_lucidos_id = $1', [id_suenio]);
-  if (result.rowCount === 0) {
-    return [];
-  }
-  return result.rows;
-}
+// Funciones de usuarios
 
-// Crear un nuevo comentario a un sueño lucido (Sueños lucidos UNICAMENTE)
-const createComentarioSuenioLucido = async (contenido, suenios_lucidos_id) => {
-  const result = await dbClient.query('INSERT INTO comentarios_lucidos (contenido, suenios_lucidos_id) VALUES ($1, $2) RETURNING *', [contenido, suenios_lucidos_id]);
+// Crear un nuevo usuario
+const createNewUser = async (nombre, clave) => {
+  const claveHash = await bcrypt.hash(clave, 10);
+  const result = await dbClient.query(' INSERT INTO usuarios (nombre, clave_hash )VALUES ($1, $2) RETURNING *', [nombre, claveHash]);
   if (result.rowCount === 0) {
     return undefined;
   }
   return result.rows[0];
 }
 
-// Eliminar un comentario a un sueño lucido (Sueños lucidos UNICAMENTE)
-const deleteOneComentarioSuenioLucido = async (id_comentario) => {
-  const result = await dbClient.query('DELETE FROM comentarios_lucidos WHERE id = $1 RETURNING *', [id_comentario]);
+// Buscar el nombre del usuario
+const getOneUser = async (username) => {
+  const result = await dbClient.query('SELECT * FROM usuarios WHERE nombre = $1', [username]);
   if (result.rowCount === 0) {
     return undefined;
   }
@@ -105,14 +100,12 @@ const deleteOneComentarioSuenioLucido = async (id_comentario) => {
 }
 
 module.exports = {
-  createSuenio,
-  getAllSuenios,
-  getComentariosRelacionadosASuenios,
-  createComentarioPersonal,
-  deleteOneComentarioPersonal,
-  getAllSueniosLucidos,
-  createSuenioLucido,
-  getComentariosRelacionadosASueniosLucidos,
-  createComentarioSuenioLucido,
-  deleteOneComentarioSuenioLucido
+  getAllDreams,
+  getDreamRelatedToUser,
+  createNewDream,
+  getAllCommentsRelatedToDream,
+  createComment,
+  deleteComment,
+  createNewUser,
+  getOneUser
 }
