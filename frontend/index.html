@@ -18,11 +18,19 @@
     </div>
 
     <nav>
+
       <ul class="nav-links">
-        <li class="nav-links-botones"><a href="index.html">Inicio</a></li>
-        <li class="nav-links-botones"><a href="mis-suenios.html">Mis sueños</a></li>
-        <li class="nav-links-botones"><a href="explorar.html">Explorar</a></li>
+        <li class="nav-links-botones" id="boton-index"><a class="nav-links-botones-activo" href="index.html">Inicio</a>
+        </li>
+        <li class="nav-links-botones" id="boton-login"><a href="login.html">Iniciar
+            sesion</a>
+        </li>
+        <li class="nav-links-botones" id="boton-register"><a href="register.html">Registrarse</a></li>
+        <li class="nav-links-botones" id="boton-explorar"><a href="explorar.html">Explorar sueños</a></li>
+        <li class="nav-links-botones" id="boton-suenios"><a href="mis-suenios.html">Mis sueños</a></li>
+        <li class="nav-links-botones" id="boton-cerrar"><a href="cerrar-sesion.html">Cerrar sesion</a></li>
       </ul>
+
     </nav>
 
   </header>
@@ -35,6 +43,9 @@
 
       <div class="contenedor-principal-crear-suenio-formulario">
 
+        <input id="titulo_suenio" type="text" placeholder="Titulo"
+          class="contenedor-principal-crear-suenio-formulario-firma" />
+
         <input id="suenio" type="text" placeholder="Anoche soñé que..."
           class="contenedor-principal-crear-suenio-formulario-entrada" />
 
@@ -42,7 +53,6 @@
           placeholder="Emociones sentidas dentro del sueño... (Ejemplo: miedo, felicidad....)"
           class="contenedor-principal-crear-suenio-formulario-emociones" />
 
-        <!-- Caso sueño lucido -->
         <div id="escala_lucidez" class="contenedor-principal-crear-suenio-formulario-lucidez">
           <label for="nivel_lucidez">Nivel de lucidez:</label>
           <select id="nivel_lucidez">
@@ -59,17 +69,8 @@
           </select>
         </div>
 
-        <input id="firma_del_autor" type="text" placeholder="Firma/Autor"
-          class="contenedor-principal-crear-suenio-formulario-firma" />
-
         <input id="fecha_del_suenio" type="date" class="contenedor-principal-crear-suenio-formulario-fecha" />
 
-      </div>
-
-
-      <div class="contenedor-principal-crear-suenio-tipo">
-        <label><input type="radio" name="tipo_suenio" value="lucido" onchange="actualizarCampos()" /> Lúcido</label>
-        <label><input type="radio" name="tipo_suenio" value="personal" checked onchange="actualizarCampos()" /> Personal</label>
       </div>
 
       <button class="contenedor-principal-crear-suenio-guardar" onclick="crearSuenio()">Guardar Sueño</button>
@@ -85,19 +86,19 @@
 
       <div class="contenedor-principal-explorar-tarjetas">
 
-        <a href="mis-suenios.html" class="contenedor-principal-explorar-tarjetas-tarjeta">
+        <a href="mis-suenios.html" class="contenedor-principal-explorar-tarjetas-tarjeta" id="tarjeta-suenios">
           <div class="contenedor-principal-explorar-tarjetas-tarjeta-icono">🧠</div>
           <h3>Sueños Personales</h3>
           <p>Ir al blog de sueños.</p>
         </a>
 
-        <a href="creencias.html" class="contenedor-principal-explorar-tarjetas-tarjeta">
+        <a href="creencias.html" class="contenedor-principal-explorar-tarjetas-tarjeta" id="tarjeta-creencias">
           <div class="contenedor-principal-explorar-tarjetas-tarjeta-icono">👥</div>
           <h3>Creencias sobre sueños</h3>
           <p>Ideologías/mitos</p>
         </a>
 
-        <a href="explorar.html" class="contenedor-principal-explorar-tarjetas-tarjeta">
+        <a href="explorar.html" class="contenedor-principal-explorar-tarjetas-tarjeta" id="tarjeta-suenios-lucidos">
           <div class="contenedor-principal-explorar-tarjetas-tarjeta-icono">🌈</div>
           <h3>Sueños Lúcidos</h3>
           <p>Sueños con control consciente.</p>
