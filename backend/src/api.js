@@ -18,7 +18,9 @@ const {
   createComment,
   deleteComment,
   createNewUser,
-  getOneUser
+  getOneUser,
+  deleteDream,
+  updateUser
 } = require('./acceso-db');
 
 app.get('/api/health', (req, res) => {
@@ -58,8 +60,23 @@ app.post('/api/suenios', async (req, res) => {
   }
 });
 
+// Endpoint para eliminar los sueños
+app.delete('/api/suenios/:id', async (req, res) => {
+  try {
+    suenio_id = req.params.id
+    const eliminado = await deleteDream(suenio_id);
+    if (!eliminado) {
+      return res.status(404).json({ error: 'Sueño no encontrado' });
+    }
+    return res.status(200).json({ message: 'Sueño eliminado' });
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ error: 'Error al eliminar el Sueño' });
+  }
+});
+
 // Endpoint para buscar suenios con id de usuarios
-app.get('/api/suenios/usuario/:id', async (req, res) => {
+app.get('/api/suenios/:id', async (req, res) => {
   try {
     const user_id = req.params.id
     const sueños = await getDreamRelatedToUser(user_id);
@@ -163,6 +180,85 @@ app.post('/api/login', async (req, res) => {
     return res.status(500).json({ error: 'Error al iniciar sesión' });
   }
 });
+
+// Endpoint para obtener datos del usuario con el nombre
+app.get('/api/user/:nombre', async (req, res) => {
+  try {
+    const user_nombre = req.params.nombre;
+    if (!user_nombre) {
+      return res.status(400).json({ error: 'Falta información requerida' });
+    }
+
+    const result = await getOneUser(user_nombre);
+    if (!result) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    return res.status(200).json(result);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ error: 'Error al obtener el usuario' });
+  }
+});
+
+// Endpoint para verificar y actualizar los datos del usuario
+app.put('/api/user/:usuario', async (req, res) => {
+  try {
+    const usuario_actual = req.params.usuario;
+    const { password_actual, nuevo_usuario, nueva_biografia, nueva_password } = req.body;
+
+    if (!password_actual || !nuevo_usuario) {
+      return res.status(400).json({ error: 'Faltan datos obligatorios: contraseña actual y nuevo nombre de usuario' });
+    }
+
+    const usuario_datos = await getOneUser(usuario_actual);
+
+    if (!usuario_datos) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    const verificacion = await bcrypt.compare(password_actual, usuario_datos.clave_hash);
+
+    if (!verificacion) {
+      return res.status(401).json({ error: 'Contraseña incorrecta' });
+    }
+
+    if (nuevo_usuario !== usuario_actual) {
+      const existente = await getOneUser(nuevo_usuario);
+      if (existente) {
+        return res.status(409).json({ error: 'Nombre de usuario ya en uso' });
+      }
+    }
+
+    if (nueva_password) {
+      const clave_final = await bcrypt.hash(nueva_password, 10);
+      const result = await updateUser(usuario_actual, nuevo_usuario, nueva_biografia, clave_final);
+      if (!result) {
+        return res.status(400).json({ error: 'No se pudo actualizar el usuario' });
+      }
+      return res.status(200).json({
+        cambio_usuario: usuario_actual !== nuevo_usuario,
+        cambio_password: !!nueva_password
+      });
+    }
+
+    const result = await updateUser(usuario_actual, nuevo_usuario, nueva_biografia, usuario_datos.clave_hash);
+
+    if (!result) {
+      return res.status(400).json({ error: 'No se pudo actualizar el usuario' });
+    }
+
+    return res.status(200).json({
+      cambio_usuario: usuario_actual !== nuevo_usuario,
+      cambio_password: !!nueva_password
+    });
+
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ error: 'Error al actualizar el usuario' });
+  }
+});
+
 
 // Inciar server
 app.listen(port, () => {

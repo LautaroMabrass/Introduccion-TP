@@ -17,7 +17,7 @@ const bcrypt = require('bcrypt');
 
 // Funcion para obtener todos los sueños todos los sueños
 const getAllDreams = async () => {
-  const result = await dbClient.query('SELECT * FROM suenios');
+  const result = await dbClient.query("SELECT suenios.*, usuarios.nombre, usuarios.biografia FROM suenios JOIN usuarios ON suenios.usuario = usuarios.id");
   if (result.rowCount === 0) {
     return [];
   }
@@ -34,7 +34,7 @@ const createNewDream = async (usuario, titulo, contenido, fecha, emociones, nive
   return result.rows[0];
 }
 
-// FUncion para obtener el sueño de un usuario
+// Funcion para obtener el sueño de un usuario
 
 const getDreamRelatedToUser = async (user_id) => {
   const result = await dbClient.query('SELECT * from suenios WHERE usuario = $1 ', [user_id]);
@@ -44,12 +44,20 @@ const getDreamRelatedToUser = async (user_id) => {
   return result.rows;
 }
 
+// Funcion para eliminar un sueño
+const deleteDream = async (suenio_id) => {
+  const result = await dbClient.query('DELETE FROM suenios WHERE id = $1 RETURNING *', [suenio_id]);
+  if (result.rowCount === 0) {
+    return undefined;
+  }
+  return result.rows[0];
+}
 // Funciones de acceso a la base de datos para los comentarios
 
 // Obtener comentarios relacionados a un sueño específico
 const getAllCommentsRelatedToDream = async (id_suenio) => {
   const result = await dbClient.query(`
-    SELECT comentarios.id, comentarios.contenido, comentarios.fecha, usuarios.nombre AS autor
+    SELECT comentarios.id, comentarios.contenido, comentarios.fecha, usuarios.nombre
     FROM comentarios
     JOIN usuarios ON comentarios.usuario = usuarios.id
     WHERE comentarios.suenio = $1;
@@ -99,6 +107,19 @@ const getOneUser = async (username) => {
   return result.rows[0];
 }
 
+// actualizar usuario
+const updateUser = async (usuario_actual, nuevo_usuario, nueva_biografia, nueva_clave_hash) => {
+  const result = await dbClient.query(
+    'UPDATE usuarios SET nombre = $1, biografia = $2, clave_hash = $3 WHERE nombre = $4 RETURNING *',
+    [nuevo_usuario, nueva_biografia || '', nueva_clave_hash, usuario_actual]
+  );
+  if(result.rowCount === 0){
+    return undefined
+  }
+  return result.rows[0];
+};
+
+
 module.exports = {
   getAllDreams,
   getDreamRelatedToUser,
@@ -107,5 +128,7 @@ module.exports = {
   createComment,
   deleteComment,
   createNewUser,
-  getOneUser
+  getOneUser,
+  deleteDream,
+  updateUser
 }
