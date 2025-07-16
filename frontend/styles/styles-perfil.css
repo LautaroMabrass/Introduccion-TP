@@ -1,0 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", sans-serif;
+    background-color: #f9fbfd;
+    color: #1e1e1e;
+    background-color: #e0e0e0;
+}
+
+/* Header */
+.header {
+    background-color: #0078d4;
+    color: #fff;
+    padding: 10px 20px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+}
+
+.header-logo {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.header-logo-luna {
+    font-size: 50px;
+}
+
+.header-logo-h1 {
+    font-size: 40px;
+    ;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links-botones a {
+    font-size: 20px;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 2px solid #FFFFFF;
+    border-radius: 999px;
+    transition: color 0.5s ease, background-color 0.5s ease;
+    cursor: pointer;
+}
+
+.nav-links-botones a:hover {
+    color: #0078d4;
+    background-color: #FFFFFF;
+    text-decoration: none;
+}
+
+.nav-links-botones a:focus,
+.contenedor-principal-crear-suenio-guardar:focus {
+    outline: 3px solid #005a9e;
+    outline-offset: 2px;
+}
+
+.nav-links-botones-activo {
+    background-color: #fff;
+    color: #0078d4 !important;
+}
+
+
+/* secion perfil */
+.contenedor-perfil {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.contenedor-perfil-seccion {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.contenedor-perfil-seccion-titulo {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1e1e1e;
+}
+
+.contenedor-perfil-seccion-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contenedor-perfil-seccion-formulario label {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    color: #333;
+}
+
+.contenedor-perfil-seccion-formulario input,
+.contenedor-perfil-seccion-formulario textarea {
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #0078d4;
+    font-size: 16px;
+    margin-top: 5px;
+    resize: none;
+}
+
+.contenedor-perfil-seccion-boton {
+    padding: 12px;
+    background-color: #0078d4;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contenedor-perfil-seccion-boton:hover {
+    background-color: #005a9e;
+}
+
+.contenedor-perfil-seccion-boton-mensaje-error {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    color: red;
+    display: none;
+}
+
+.contenedor-perfil-seccion-boton-mensaje-exito {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    color: green;
+    display: none;
+}

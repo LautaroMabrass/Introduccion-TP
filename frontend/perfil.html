@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/styles-perfil.css">
+    <title>Mi perfil</title>
+</head>
+
+<body>
+    <header class="header">
+
+        <div class="header-logo">
+            <span class="header-logo-luna">🌙</span>
+            <h1 class="header-logo-h1">Laboratorio de Sueños</h1>
+        </div>
+
+        <nav>
+            <ul class="nav-links">
+                <li class="nav-links-botones" id="boton-index"><a href="index.html">Inicio</a>
+                </li>
+                <li class="nav-links-botones" id="boton-perfil"><a href="perfil.html"
+                        class="nav-links-botones-activo">Mi perfil</a></li>
+                <li class="nav-links-botones" id="boton-explorar"><a href="explorar.html">Explorar sueños</a></li>
+                <li class="nav-links-botones" id="boton-suenios"><a href="mis-suenios.html">Mis sueños</a></li>
+                <li class="nav-links-botones" id="boton-cerrar"><a href="cerrar-sesion.html">Cerrar sesion</a></li>
+            </ul>
+        </nav>
+
+    </header>
+    <main class="contenedor-perfil">
+        <section class="contenedor-perfil-seccion">
+            <h2 class="contenedor-perfil-seccion-titulo">Editar Perfil</h2>
+
+            <form id="perfil-formulario" class="contenedor-perfil-seccion-formulario">
+                <label>
+                    Nombre de usuario:
+                    <input type="text" id="perfil-username" />
+                </label>
+
+                <label>
+                    Contraseña actual:
+                    <input type="password" id="perfil-password-actual"
+                        placeholder="Requerida para cambiar contraseña" />
+                </label>
+
+                <label>
+                    Nueva contraseña:
+                    <input type="text" id="perfil-password-nueva" placeholder="Opcional. Cambiar solo si querés." />
+                </label>
+
+                <label>
+                    Biografía:
+                    <textarea id="perfil-biografia" rows="5" placeholder="Contá un poco sobre vos..."></textarea>
+                </label>
+
+                <button type="button" class="contenedor-perfil-seccion-boton" onclick="guardarBoton()">Guardar
+                    Cambios</button>
+            </form>
+            <p id="perfil-mensaje-error" class="contenedor-perfil-seccion-boton-mensaje-error">
+            </p>
+            <p id="perfil-mensaje-exito" class="contenedor-perfil-seccion-boton-mensaje-exito">
+            </p>
+
+        </section>
+    </main>
+    <script src="js-files/perfil-js.js"></script>
+</body>
+
+</html>
