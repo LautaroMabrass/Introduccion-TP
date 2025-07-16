@@ -1,0 +1,242 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", sans-serif;
+    background-color: #f9fbfd;
+    color: #1e1e1e;
+    background-color: #e0e0e0;
+}
+
+/* Header */
+.header {
+    background-color: #0078d4;
+    color: #fff;
+    padding: 10px 20px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+}
+
+.header-logo {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.header-logo-luna {
+    font-size: 50px;
+}
+
+.header-logo-h1 {
+    font-size: 40px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links-botones a {
+    font-size: 20px;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 2px solid #FFFFFF;
+    border-radius: 999px;
+    transition: color 0.5s ease, background-color 0.5s ease;
+    cursor: pointer;
+}
+
+.nav-links-botones a:hover {
+    color: #0078d4;
+    background-color: #FFFFFF;
+    text-decoration: none;
+}
+
+.nav-links-botones-activo {
+    background-color: #fff;
+    color: #0078d4 !important;
+}
+
+.contenedor-principal-suenios {
+    padding: 40px 20px;
+    margin: auto;
+}
+
+.contenedor-principal-suenios-titulo {
+    font-size: 36px;
+    text-align: center;
+    background-color: #FFFFFF;
+    padding: 20px;
+    color: #1e1e1e;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    margin: 0 auto 20px auto;
+    max-width: 500px;
+}
+
+/* Contenedor de tarjetas */
+.contenedor-principal-suenios-tarjetas {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+}
+
+/* Tarjeta individual */
+.contenedor-principal-suenios-tarjetas-suenio {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contenedor-principal-suenios-tarjetas-suenio-titulo {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0078d4;
+}
+
+.contenedor-principal-suenios-tarjetas-suenio-historia {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1e1e1e;
+}
+
+.contenedor-principal-suenios-tarjetas-suenio-emocion,
+.contenedor-principal-suenios-tarjetas-suenio-firma,
+.contenedor-principal-suenios-tarjetas-suenio-tipo_de_suenio,
+.contenedor-principal-suenios-tarjetas-suenio-lucidez {
+    font-size: 18px;
+    color: #555;
+}
+
+.contenedor-principal-suenios-tarjetas-suenio-lucidez {
+    font-style: italic;
+    color: black;
+}
+
+.contenedor-principal-suenios-tarjetas-suenio-fecha {
+    font-size: 14px;
+    color: #888;
+    margin-top: 10px;
+}
+
+/* Comentarios */
+.contenedor-principal-suenios-tarjetas-suenio-comentarios {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.contenedor-principal-suenios-tarjetas-suenio-comentarios-input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #0078d4;
+    font-size: 16px;
+    min-width: 220px;
+}
+
+.contenedor-principal-suenios-tarjetas-suenio-comentarios-boton {
+    padding: 10px 16px;
+    background-color: #0078d4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contenedor-principal-suenios-tarjetas-suenio-comentarios-boton:hover {
+    background-color: #005a9e;
+}
+
+/* Lista de comentarios */
+.contenedor-principal-suenios-tarjetas-suenio-lista_comentarios {
+    margin-top: 15px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    width: 100%;
+    align-items: center;
+}
+
+.contenedor-principal-suenios-tarjetas-suenio-lista_comentarios-anonimo {
+    background-color: #eef3f8;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333;
+    flex: 1;
+}
+
+.contenedor-principal-suenios-tarjetas-suenio-lista_comentarios-fecha {
+    font-size: 12px;
+    color: black;
+    margin-top: 4px;
+    padding-left: 12px;
+    padding-right: 10px;
+}
+
+.contenedor-principal-suenios-tarjetas-suenio-lista_comentarios-eliminar {
+    background-color: transparent;
+    border: none;
+    color: red;
+    font-size: 25px;
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.contenedor-principal-suenios-tarjetas-suenio-lista_comentarios-eliminar:hover {
+    transform: scale(1.2);
+    color: #a50000;
+}
+
+.contenedor-principal-suenios-tarjetas-suenio-eliminar {
+    align-self: flex-end;
+    background-color: #e53935;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contenedor-principal-suenios-tarjetas-suenio-eliminar:hover {
+    background-color: #c62828;
+}
+
+.contenedor-principal-explorar-sin-tarjetas {
+    width: 500px;
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #f9fbfd;
+    border: 2px dashed #cfd8dc;
+    border-radius: 12px;
+    margin-top: 30px;
+    display: none;
+    margin: 0 auto;
+}
+
+.contenedor-principal-explorar-sin-tarjetas-mensaje {
+    font-size: 20px;
+    color: #607d8b;
+    font-weight: 500px;
+}
