@@ -1,6 +1,7 @@
 const usuarioNombre = localStorage.getItem('usuarioLogueado');
 const suenioApi = 'http://localhost:3000/api/suenios';
 
+
 const msjexito = document.getElementById("msjexito");
 const msjerror = document.getElementById("msjerror");
 const botonIndex = document.getElementById("boton-index");
@@ -8,9 +9,10 @@ const botonLogin = document.getElementById("boton-login");
 const botonRegister = document.getElementById("boton-register");
 const botonExplorar = document.getElementById("boton-explorar");
 const botonMisSuenios = document.getElementById("boton-suenios");
+const botonMiPerfil = document.getElementById("boton-perfil")
 const botonCerrar = document.getElementById("boton-cerrar");
 const tarjetaSueniosLucidos = document.getElementById("tarjeta-suenios-lucidos");
-const tarjetaCreencia = document.getElementById("tarjeta-creencias");
+const tarjetaPerfil = document.getElementById("tarjeta-perfil");
 const tarjetaSuenios = document.getElementById("tarjeta-suenios")
 
 if (usuarioNombre) {
@@ -18,10 +20,11 @@ if (usuarioNombre) {
     botonRegister.style.display = "none";
 } else {
     botonExplorar.style.display = "none";
+    botonMiPerfil.style.display = "none";
     botonMisSuenios.style.display = "none";
     botonCerrar.style.display = "none";
     tarjetaSueniosLucidos.href = "login.html"
-    tarjetaCreencia.href = "login.html"
+    tarjetaPerfil.href = "login.html"
     tarjetaSuenios.href = "login.html"
 }
 

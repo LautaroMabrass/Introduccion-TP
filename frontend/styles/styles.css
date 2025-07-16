@@ -9,6 +9,7 @@
   font-family: "Segoe UI", sans-serif;
   background-color: #f9fbfd;
   color: #1e1e1e;
+  background-color: #e0e0e0;
 }
 
 /* Header */
@@ -28,7 +29,7 @@
 }
 
 .header-logo-luna {
-  font-size: 30px;
+  font-size: 50px;
 }
 
 .header-logo-h1 {
@@ -58,11 +59,11 @@
   text-decoration: none;
 }
 
-.nav-links-botones a:focus,
-.contenedor-principal-crear-suenio-guardar:focus {
-  outline: 3px solid #005a9e;
-  outline-offset: 2px;
+.nav-links-botones-activo {
+  background-color: #fff;
+  color: #0078d4 !important;
 }
+
 
 /* Main */
 
@@ -98,6 +99,14 @@
   font-size: 18px;
 }
 
+.contenedor-principal-crear-suenio-formulario textarea {
+  padding: 10px;
+  border: 2px solid #0078d4;
+  border-radius: 8px;
+  font-size: 18px;
+  resize: none;
+}
+
 .contenedor-principal-crear-suenio-formulario-entrada {
   width: 100%;
 }
@@ -125,10 +134,9 @@
   border: 1px solid #0078d4;
   color: #1e1e1e;
   width: 300px;
-  display: none;
 }
 
-.contenedor-principal-crear-suenio-formulario-lucidez label{
+.contenedor-principal-crear-suenio-formulario-lucidez label {
   font-weight: bold;
   font-size: 1rem;
   padding-right: 20px;
@@ -138,7 +146,7 @@
   background-color: #ffffff;
   color: #1e1e1e;
   font-size: 1rem;
-  padding: 10px; 
+  padding: 10px;
   border-radius: 999px;
   border-color: #0078d4;
   border-style: solid;
@@ -149,11 +157,13 @@
   display: none;
   font-size: 20px;
 }
+
 .contenedor-principal-crear-suenio-exito {
   color: green;
   display: none;
   font-size: 20px;
 }
+
 /* Radio tipo de sueño */
 .contenedor-principal-crear-suenio-tipo {
   display: flex;
@@ -181,7 +191,8 @@
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
-  font-size: 20px;
+  font-size: 25px;
+  height: 60px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
