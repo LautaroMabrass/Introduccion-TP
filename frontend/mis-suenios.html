@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis sueños</title>
+    <link rel="stylesheet" href="styles/styles-mis-suenios.css">
+</head>
+
+<body>
+    <header class="header">
+
+        <div class="header-logo">
+            <span class="header-logo-luna">🌙</span>
+            <h1 class="header-logo-h1">Laboratorio de Sueños</h1>
+        </div>
+
+        <nav>
+            <ul class="nav-links">
+                <li class="nav-links-botones" id="boton-index"><a href="index.html">Inicio</a>
+                </li>
+                <li class="nav-links-botones" id="boton-perfil"><a href="perfil.html">Mi perfil</a></li>
+                <li class="nav-links-botones" id="boton-explorar"><a href="explorar.html">Explorar sueños</a></li>
+                <li class="nav-links-botones" id="boton-suenios"><a href="mis-suenios.html"
+                        class="nav-links-botones-activo">Mis sueños</a></li>
+                <li class="nav-links-botones" id="boton-cerrar"><a href="cerrar-sesion.html">Cerrar sesion</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <main>
+
+        <section class="contenedor-principal-suenios">
+
+            <h2 class="contenedor-principal-suenios-titulo">Tu historial de sueños</h2>
+
+            <div class="contenedor-principal-explorar-sin-tarjetas" id="div-sin-suenios">
+                <p class="contenedor-principal-explorar-sin-tarjetas-mensaje">
+                    😴 Mmm... parece que no se han publicado sueños todavía.
+                </p>
+            </div>
+
+            <div class="contenedor-principal-suenios-tarjetas" id="tarjeta-suenio-append-informacion">
+                <!-- Aca se generan dinamicamente las tarjetas -->
+            </div>
+
+        </section>
+    </main>
+    <script src="js-files/mis-suenios-js.js"></script>
+</body>
+
+</html>
+
+
+
+<!-- Referencia hardcodeada de un sueño
+
+            <div class="contenedor-principal-suenios-tarjetas-suenio">
+
+                <button onclick="eliminarSuenio(e)" class="contenedor-principal-suenios-tarjetas-suenio-eliminar"> eliminar sueño <button>
+
+                <h2 class="contenedor-principal-suenios-tarjetas-suenio-titulo">
+                    Anoche soñé que estaba en un circo
+                </h2>
+
+                <h3 class="contenedor-principal-suenios-tarjetas-suenio-historia">
+                    historia....
+                </h3>
+
+                <p class="contenedor-principal-suenios-tarjetas-suenio-emocion">
+                    Emociones: felicidad
+                </p>
+
+                <p class="contenedor-principal-suenios-tarjetas-suenio-lucidez">
+                    Nivel de lucidez
+                </p>
+
+                <p class="contenedor-principal-suenios-tarjetas-suenio-fecha">
+                    Publicado el: 10/07/2025
+                </p>
+
+                <div class="contenedor-principal-suenios-tarjetas-suenio-lista_comentarios">
+
+                    <p class="contenedor-principal-suenios-tarjetas-suenio-lista_comentarios-anonimo" >💬....</p>
+                    
+                    <p class="contenedor-principal-suenios-tarjetas-suenio-lista_comentarios-fecha" >FECHA</p>
+                    
+
+                    <button class="contenedor-principal-suenios-tarjetas-suenio-lista_comentarios-eliminar" onclick="eliminarComentario()">❌</button>
+
+                </div>
+
+                <div class="contenedor-principal-suenios-tarjetas-suenio-comentarios">
+                    <input type="text" placeholder="Comentar de forma anónima..." class="contenedor-principal-suenios-tarjetas-suenio-comentarios-input" />
+                    <button class="contenedor-principal-suenios-tarjetas-suenio-comentarios-boton" onclick="enviarComentario(event)">Enviar</button>
+                </div>
+
+            </div> 
+    -->
