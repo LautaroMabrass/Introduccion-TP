@@ -21,6 +21,7 @@
             <ul class="nav-links">
                 <li class="nav-links-botones" id="boton-index"><a href="index.html">Inicio</a>
                 </li>
+                <li class="nav-links-botones" id="boton-perfil"><a href="perfil.html">Mi perfil</a></li>
                 <li class="nav-links-botones" id="boton-explorar"><a href="explorar.html"
                         class="nav-links-botones-activo">Explorar sueños</a></li>
                 <li class="nav-links-botones" id="boton-suenios"><a href="mis-suenios.html">Mis sueños</a></li>
@@ -41,7 +42,7 @@
                     <select id="filtro-tipo">
                         <option value="todos">Todos</option>
                         <option value="lucido">Lúcido</option>
-                        <option value="personal">Común</option>
+                        <option value="comun">Común</option>
                     </select>
                 </label>
 
@@ -50,7 +51,8 @@
                     <input type="text" id="filtro-emociones" placeholder="Felicidad, tristeza, miedo...">
                 </label>
 
-                <button class="contenedor-principal-explorar-filtros-formulario-boton">Buscar</button>
+                <button class="contenedor-principal-explorar-filtros-formulario-boton"
+                    onclick="aplicarFiltros()">Buscar</button>
             </div>
 
         </section>
@@ -59,10 +61,25 @@
 
             <!-- Contenedor principal de los sueños -->
 
-            <div class="contenedor-principal-explorar-tarjetas-todos" id="tarjeta-suenio-append-informacion">
+            <div class="contenedor-principal-explorar-sin-tarjetas" id="div-sin-suenios">
+                <p class="contenedor-principal-explorar-sin-tarjetas-mensaje">
+                    😴 Mmm... parece que no se han publicado sueños todavía.
+                </p>
+            </div>
+
+            <div class=" contenedor-principal-explorar-tarjetas-todos" id="tarjeta-suenio-append-informacion">
 
                 <!-- Aca se agregan dinamicamente los sueños y sus respectivos comentarios -->
 
+            </div>
+
+            <div class="contenedor-principal-explorar-tarjetas-info" id="usuario-info">
+                <div class="contenedor-principal-explorar-tarjetas-info-contenido">
+                    <button class="contenedor-principal-explorar-tarjetas-info-contenido-cerrar"
+                        onclick="cerrarModalUsuario()">✖</button>
+                    <h2 id="nombre-info" class="contenedor-principal-explorar-tarjetas-info-contenido-nombre"></h2>
+                    <p id="biografia-info" class="contenedor-principal-explorar-tarjetas-info-contenido-biografia"></p>
+                </div>
             </div>
 
         </section>
