@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio de los sueños - Ilustraciones</title>
+    <link rel="stylesheet" href="styles/styles-ilustraciones.css">
+</head>
+
+<body>
+    <header class="header">
+
+        <div class="header-logo">
+            <span class="header-logo-luna">🌙</span>
+            <h1 class="header-logo-h1">Laboratorio de Sueños</h1>
+        </div>
+
+        <nav>
+            <ul class="nav-horizontal">
+                <li id="boton-index"><a href="index.html">Inicio</a>
+                </li>
+                <li id="boton-perfil">
+                    <a href="perfil.html">Mi perfil</a>
+                    <ul class="nav-vertical">
+                        <li><a href="cerrar-sesion.html">Cerrar sesion</a></li>
+                    </ul>
+                </li>
+                <li id="boton-explorar">
+                    <a href="explorar.html">Sueños</a>
+                    <ul class="nav-vertical">
+                        <li><a href="ilustraciones.html" class="nav-vertical-activo">Ilustraciones</a></li>
+                        <li><a href="mis-suenios.html">Mis sueños</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+    </header>
+    <main>
+        <section class="contenedor" id="contenedor-principal">
+
+            <h1 class="contenedor-titulo"> Ilustraciones de sueños </h1>
+            <div class="contenedor-ilustraciones">
+
+                <form class="contenedor-ilustraciones-formulario" id="form-ilustracion">
+
+                    <input type="text" id="form-titulo" placeholder="Título de la ilustración" />
+                    <textarea id="form-descripcion" rows="3" placeholder="Descripción..."></textarea>
+                    <input type="file" id="form-imagen" accept="image/*" />
+                    <button type="button" onclick="publicarImagen()">Publicar</button>
+                    <p class="contenedor-ilustraciones-formulario-error" id="msjError"></p>
+                    <p class="contenedor-ilustraciones-formulario-exito" id="msjExito"></p>
+                </form>
+
+            </div>
+
+            <div class="contenedor-ilustraciones-sin" id="div-sin-suenios">
+
+                <p class="contenedor-ilustraciones-sin-mensaje">
+                    😴 Mmm... parece que no se han publicado ilustraciones todavía.
+                </p>
+
+            </div>
+
+        </section>
+    </main>
+    <script src="js-files/ilustraciones.js"></script>
+</body>
+
+</html>
+<!-- 
+Referencia de publicaciones
+
+             <div class="contenedor-ilustraciones">
+
+                <div class="contenedor-ilustraciones-lista">
+
+                    <div class="contenedor-ilustraciones-lista-datos">
+                        <h3>Amanecer en el bosque</h3>
+                        <p>Una ilustración inspirada en un sueño lúcido con árboles mágicos.</p>
+                        <img src="/uploads/ejemplo.jpg" alt="Ilustración de ejemplo" />
+                        <p>Autor: </p>
+                    </div>
+
+                </div>
+
+            </div>
+-->
