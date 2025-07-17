@@ -33,39 +33,57 @@ body {
 
 .header-logo-h1 {
     font-size: 40px;
-    ;
 }
 
-.nav-links {
+/* Menú horizontal */
+.nav-horizontal {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 30px;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 28px;
 }
 
-.nav-links-botones a {
+.nav-horizontal li a {
+    display: block;
+    padding: 18px 25px;
     font-size: 20px;
-    color: #FFFFFF;
+    font-weight: bold;
+    color: white;
     text-decoration: none;
-    padding: 8px 16px;
-    border: 2px solid #FFFFFF;
-    border-radius: 999px;
-    transition: color 0.5s ease, background-color 0.5s ease;
-    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
 }
 
-.nav-links-botones a:hover {
-    color: #0078d4;
-    background-color: #FFFFFF;
-    text-decoration: none;
+.nav-horizontal li a:hover {
+    background-color: #fff;
+    color: #0078d4 !important;
 }
 
-.nav-links-botones a:focus,
-.contenedor-principal-crear-suenio-guardar:focus {
-    outline: 3px solid #005a9e;
-    outline-offset: 2px;
+/* Submenú vertical */
+.nav-vertical {
+    position: absolute;
+    display: none;
+    width: 180px;
+    background-color: #005a9e;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.nav-links-botones-activo {
+.nav-horizontal li:hover .nav-vertical {
+    display: block;
+    list-style: none;
+}
+
+.nav-vertical li a {
+    padding: 15px 20px;
+    font-size: 18px;
+    color: white;
+    display: block;
+}
+
+.nav-horizontal-activo {
     background-color: #fff;
     color: #0078d4 !important;
 }
@@ -79,6 +97,7 @@ body {
 }
 
 .contenedor-perfil-seccion {
+    border: 1px solid #1e1e1e;
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
