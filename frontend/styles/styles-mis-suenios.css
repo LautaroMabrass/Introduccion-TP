@@ -1,4 +1,3 @@
-/* Reset */
 * {
     margin: 0;
     padding: 0;
@@ -20,6 +19,7 @@ body {
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .header-logo {
@@ -36,39 +36,61 @@ body {
     font-size: 40px;
 }
 
-.nav-links {
+
+/* Menú horizontal */
+.nav-horizontal {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 30px;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 28px;
 }
 
-.nav-links-botones a {
+.nav-horizontal li a {
+    display: block;
+    padding: 18px 25px;
     font-size: 20px;
-    color: #FFFFFF;
+    font-weight: bold;
+    color: white;
     text-decoration: none;
-    padding: 8px 16px;
-    border: 2px solid #FFFFFF;
-    border-radius: 999px;
-    transition: color 0.5s ease, background-color 0.5s ease;
-    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
 }
 
-.nav-links-botones a:hover {
-    color: #0078d4;
-    background-color: #FFFFFF;
-    text-decoration: none;
-}
-
-.nav-links-botones-activo {
+.nav-horizontal li a:hover {
     background-color: #fff;
     color: #0078d4 !important;
 }
 
-.contenedor-principal-suenios {
-    padding: 40px 20px;
-    margin: auto;
+/* Submenú vertical */
+.nav-vertical {
+    position: absolute;
+    display: none;
+    width: 180px;
+    background-color: #005a9e;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+.nav-horizontal li:hover .nav-vertical {
+    display: block;
+    list-style: none;
+}
+
+.nav-vertical li a {
+    padding: 15px 20px;
+    font-size: 18px;
+    color: white;
+    display: block;
+}
+
+.nav-vertical-activo {
+    background-color: #fff;
+    color: #0078d4 !important;
+}
+
+/*main*/
 .contenedor-principal-suenios-titulo {
     font-size: 36px;
     text-align: center;
@@ -78,7 +100,8 @@ body {
     border-radius: 16px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     margin: 0 auto 20px auto;
-    max-width: 500px;
+    width: 500px;
+    border: 1px solid #1e1e1e;
 }
 
 /* Contenedor de tarjetas */
@@ -87,6 +110,7 @@ body {
     flex-direction: column;
     gap: 30px;
     align-items: center;
+    margin: 20px;
 }
 
 /* Tarjeta individual */
@@ -99,6 +123,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    border: 1px solid #1e1e1e;
 }
 
 .contenedor-principal-suenios-tarjetas-suenio-titulo {
