@@ -10,7 +10,7 @@ Sitio web para registrar y explorar sueños personales, colectivos y lúcidos, c
 
 # Estructura de la Base de Datos
 
-![Estructura de la db](./imagenes/captura-db.jpeg)
+![Estructura de la db](./imagenes/DbEsquema.png)
 
 > Las sentencias SQL se encuentran en la carpeta `backend/scripts`.
 
