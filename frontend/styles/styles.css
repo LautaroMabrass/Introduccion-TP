@@ -1,11 +1,10 @@
-/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-.body-index {
+body {
   font-family: "Segoe UI", sans-serif;
   background-color: #f9fbfd;
   color: #1e1e1e;
@@ -20,6 +19,7 @@
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .header-logo {
@@ -36,34 +36,59 @@
   font-size: 40px;
 }
 
-.nav-links {
+
+/* Menú horizontal */
+.nav-horizontal {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 30px;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 28px;
 }
 
-.nav-links-botones a {
+.nav-horizontal li a {
+  display: block;
+  padding: 18px 25px;
   font-size: 20px;
-  color: #FFFFFF;
+  font-weight: bold;
+  color: white;
   text-decoration: none;
-  padding: 8px 16px;
-  border: 2px solid #FFFFFF;
-  border-radius: 999px;
-  transition: color 0.5s ease, background-color 0.5s ease;
-  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s;
 }
 
-.nav-links-botones a:hover {
-  color: #0078d4;
-  background-color: #FFFFFF;
-  text-decoration: none;
-}
-
-.nav-links-botones-activo {
+.nav-horizontal li a:hover {
   background-color: #fff;
   color: #0078d4 !important;
 }
 
+/* Submenú vertical */
+.nav-vertical {
+  position: absolute;
+  display: none;
+  width: 180px;
+  background-color: #005a9e;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-horizontal li:hover .nav-vertical {
+  display: block;
+  list-style: none;
+}
+
+.nav-vertical li a {
+  padding: 15px 20px;
+  font-size: 18px;
+  color: white;
+  display: block;
+}
+
+.nav-horizontal-activo {
+  background-color: #fff;
+  color: #0078d4 !important;
+}
 
 /* Main */
 
@@ -78,6 +103,7 @@
   gap: 20px;
   flex-direction: column;
   align-items: center;
+  border: 1px solid #1e1e1e;
 }
 
 .contenedor-principal-crear-suenio-titulo {
@@ -164,7 +190,6 @@
   font-size: 20px;
 }
 
-/* Radio tipo de sueño */
 .contenedor-principal-crear-suenio-tipo {
   display: flex;
   gap: 20px;
@@ -204,6 +229,7 @@
 
 /* Sección explorar sueños */
 .contenedor-principal-explorar {
+  border: 1px solid #1e1e1e;
   display: flex;
   flex-direction: column;
   gap: 20px;

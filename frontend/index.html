@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Laboratorio de Sueños</title>
+  <title>Laboratorio de Sueños - home</title>
   <link rel="stylesheet" href="styles/styles.css" />
 </head>
 
@@ -18,20 +18,38 @@
     </div>
 
     <nav>
-
-      <ul class="nav-links">
-        <li class="nav-links-botones" id="boton-index"><a class="nav-links-botones-activo" href="index.html">Inicio</a>
+      <ul class="nav-horizontal">
+        <li id="boton-index">
+          <a href="index.html" class="nav-horizontal-activo">Inicio</a>
         </li>
-        <li class="nav-links-botones" id="boton-perfil"><a href="perfil.html">Mi perfil</a></li>
-        <li class="nav-links-botones" id="boton-login"><a href="login.html">Iniciar
+        <li id="boton-perfil">
+          <a href="perfil.html">Mi perfil</a>
+
+          <ul class="nav-vertical">
+            <li>
+              <a href="cerrar-sesion.html">Cerrar sesion</a>
+            </li>
+          </ul>
+
+        </li>
+        <li id="boton-explorar">
+          <a href="explorar.html">Sueños</a>
+
+          <ul class="nav-vertical">
+            <li>
+              <a href="ilustraciones.html">Ilustraciones</a>
+            </li>
+            <li>
+              <a href="mis-suenios.html">Mis sueños</a>
+            </li>
+          </ul>
+
+        </li>
+        <li id="boton-login"><a href="login.html">Iniciar
             sesion</a>
         </li>
-        <li class="nav-links-botones" id="boton-register"><a href="register.html">Registrarse</a></li>
-        <li class="nav-links-botones" id="boton-explorar"><a href="explorar.html">Explorar sueños</a></li>
-        <li class="nav-links-botones" id="boton-suenios"><a href="mis-suenios.html">Mis sueños</a></li>
-        <li class="nav-links-botones" id="boton-cerrar"><a href="cerrar-sesion.html">Cerrar sesion</a></li>
+        <li id="boton-register"><a href="register.html">Registrarse</a></li>
       </ul>
-
     </nav>
 
   </header>
