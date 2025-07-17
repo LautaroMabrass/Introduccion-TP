@@ -1,40 +1,34 @@
-CREATE TABLE creencias_sobre_suenios (
+CREATE TABLE usuarios (
     id SERIAL PRIMARY KEY,
-    firma VARCHAR(100),
-    tipo TEXT,
-    contenido TEXT
+    nombre VARCHAR(36) UNIQUE,
+    biografia VARCHAR(255) DEFAULT NULL,
+    clave_hash VARCHAR(255)
 );
 
-CREATE TABLE suenios_lucidos (
+
+CREATE TABLE suenios (
     id SERIAL PRIMARY KEY,
-    firma VARCHAR(100),
+    usuario INTEGER REFERENCES usuarios(id) ON DELETE CASCADE,
+    titulo VARCHAR(100),
     contenido TEXT,
-    fecha DATE,
-    nivel_de_lucidez INTEGER,
+    fecha DATE DEFAULT CURRENT_DATE,
+    emociones TEXT,
+    nivel_lucidez INTEGER
 );
 
-CREATE TABLE suenios_personales (
+CREATE TABLE comentarios (
     id SERIAL PRIMARY KEY,
-    firma VARCHAR(100),
+    usuario INTEGER REFERENCES usuarios(id) ON DELETE CASCADE,
+    suenio INTEGER REFERENCES suenios(id) ON DELETE CASCADE,
     contenido TEXT,
-    fecha DATE,
-    emociones TEXT
+    fecha DATE DEFAULT CURRENT_DATE
 );
 
-CREATE TABLE comentarios_lucidos (
+CREATE TABLE imagenes (
     id SERIAL PRIMARY KEY,
-    contenido TEXT,
-    suenio_lucido_id INTEGER REFERENCES suenios_lucidos(id) ON DELETE CASCADE
-);
-
-CREATE TABLE comentarios_personales (
-    id SERIAL PRIMARY KEY,
-    contenido TEXT,
-    suenios_personales_id INTEGER REFERENCES suenios_personales(id) ON DELETE CASCADE
-);
-
-CREATE TABLE emociones (
-    id SERIAL PRIMARY KEY,
-    emocion TEXT,
-    suenios_personales_id INTEGER REFERENCES suenios_personales(id) ON DELETE CASCADE
+    usuario INTEGER REFERENCES usuarios(id) ON DELETE CASCADE,
+    url TEXT NOT NULL,
+    titulo VARCHAR(255),
+    descripcion TEXT,
+    fecha DATE DEFAULT CURRENT_DATE
 );

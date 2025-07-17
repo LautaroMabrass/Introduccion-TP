@@ -5,6 +5,21 @@ const app = express();
 const port = 3000;
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+// multer
+const multer = require('multer')
+
+const path = require('path')
+const uploadPath = path.join(__dirname, '../uploads');
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadPath); // Se guarda en uploads
+    },
+    filename: function (req, file, cb) {
+        const nombreFinal = Date.now() + path.extname(file.originalname); // nombre para cada imagen
+        cb(null, nombreFinal);
+    }
+});
+const upload = multer({ storage })
 app.use(express.json());
 app.use(cors());
 
@@ -20,7 +35,10 @@ const {
   createNewUser,
   getOneUser,
   deleteDream,
-  updateUser
+  updateUser,
+  saveImage,
+  allImages,
+  deleteImage
 } = require('./acceso-db');
 
 app.get('/api/health', (req, res) => {
@@ -259,6 +277,56 @@ app.put('/api/user/:usuario', async (req, res) => {
   }
 });
 
+// Endpoints para las imagenes 
+// upload.single('image') procesa la imagen que mande en el body
+app.post('/api/imagenes', upload.single('image'), async (req, res) => {
+    try {
+        const usuario = req.body.usuario;
+        const titulo = req.body.titulo;
+        const descripcion = req.body.descripcion;
+        const archivo = req.file;
+
+        if (!usuario || !titulo || !descripcion || !archivo) {
+            return res.status(400).json({ error: 'Faltan datos o imagen' });
+        }
+        const usuario_id = await getOneUser(usuario)
+        const resultado = await saveImage(usuario_id.id, archivo.filename, titulo, descripcion);
+
+        if (!resultado) {
+            return res.status(500).json({ error: 'No se pudo guardar la imagen en la base de datos' });
+        }
+
+        return res.status(201).json({ resultado });
+
+    } catch (e) {
+        console.error('Error al subir la imagen:', e);
+        res.status(500).json({ error: 'Error al subir la imagen' });
+    }
+});
+
+app.get('/api/imagenes', async (req, res) => {
+    const result = await allImages();
+    if (!result) {
+        return res.status(404).json({ error: 'Error al buscar todas las imagenes' });
+    }
+    return res.status(200).json(result);
+})
+
+app.delete('/api/imagenes/:imagen_id', async (req, res) => {
+    const result = await deleteImage(req.params.imagen_id)
+    if (!result) {
+        return res.status(404).json({ error: 'Imagen no encontrado' });
+    }
+    return res.status(200).json({ message: 'Imagen eliminado' });
+})
+
+// Expongo mi carpeta uploads para que el frontend pueda acceder
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
+  setHeaders: (res) => {
+    res.set('Cross-Origin-Resource-Policy', 'cross-origin');
+  }
+}));
 
 // Inciar server
 app.listen(port, () => {
