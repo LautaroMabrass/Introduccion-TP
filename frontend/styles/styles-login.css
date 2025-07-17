@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-.body-login {
+body {
     font-family: "Segoe UI", sans-serif;
     background-color: #f9fbfd;
     color: #1e1e1e;
@@ -19,6 +19,7 @@
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .header-logo {
@@ -28,42 +29,46 @@
 }
 
 .header-logo-luna {
-    font-size: 30px;
+    font-size: 50px;
 }
 
 .header-logo-h1 {
     font-size: 40px;
 }
 
-.nav-links {
+
+/* Menú horizontal */
+.nav-horizontal {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 30px;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 28px;
 }
 
-.nav-links-botones a {
+.nav-horizontal li a {
+    display: block;
+    padding: 18px 25px;
     font-size: 20px;
-    color: #FFFFFF;
+    font-weight: bold;
+    color: white;
     text-decoration: none;
-    padding: 8px 16px;
-    border: 2px solid #FFFFFF;
-    border-radius: 999px;
-    transition: color 0.5s ease, background-color 0.5s ease;
-    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
 }
 
-.nav-links-botones a:hover {
-    color: #0078d4;
-    background-color: #FFFFFF;
-    text-decoration: none;
-}
-
-.nav-links-botones-activo {
+.nav-horizontal li a:hover {
     background-color: #fff;
     color: #0078d4 !important;
 }
 
+.nav-horizontal-activo {
+    background-color: #fff;
+    color: #0078d4 !important;
+}
 
+/*Main*/
 .container {
     width: 100%;
     display: flex;
@@ -79,6 +84,7 @@
     padding: 24px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     width: 500px;
+    border: 1px solid #1e1e1e;
 }
 
 .container-card h2 {
