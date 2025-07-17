@@ -1,5 +1,5 @@
 // PostgreSQL client imports
-const { Pool } = require('pg')
+const { Pool, Result } = require('pg')
 
 // Conexion con PostgreSQL database
 const dbClient = new Pool({
@@ -113,13 +113,40 @@ const updateUser = async (usuario_actual, nuevo_usuario, nueva_biografia, nueva_
     'UPDATE usuarios SET nombre = $1, biografia = $2, clave_hash = $3 WHERE nombre = $4 RETURNING *',
     [nuevo_usuario, nueva_biografia || '', nueva_clave_hash, usuario_actual]
   );
-  if(result.rowCount === 0){
+
+  if (result.rowCount === 0) {
     return undefined
   }
-  return result.rows[0];
+  return result.rows[0]
 };
 
+// Funciones para la seccion ilustraciones
 
+// Guardar imagen
+
+const saveImage = async (usuario_id, imagen, titulo, descripcion) => {
+  const result = await dbClient.query('INSERT INTO imagenes(usuario, url, titulo, descripcion) VALUES ($1, $2, $3, $4) RETURNING *', [usuario_id, imagen, titulo, descripcion])
+  if (result.rowCount === 0) {
+    return undefined
+  }
+  return result.rows;
+}
+
+const allImages = async () => {
+  const result = await dbClient.query("SELECT imagenes.*, usuarios.nombre FROM imagenes JOIN usuarios ON imagenes.usuario = usuarios.id");
+  if (result.rowCount === 0) {
+    return undefined
+  }
+  return result.rows;
+}
+
+const deleteImage = async (imagen_id) => {
+  const result = await dbClient.query('DELETE FROM imagenes WHERE id = $1 RETURNING *', [imagen_id])
+  if (result.rowCount === 0) {
+    return undefined
+  }
+  return result.rows;
+}
 module.exports = {
   getAllDreams,
   getDreamRelatedToUser,
@@ -130,5 +157,8 @@ module.exports = {
   createNewUser,
   getOneUser,
   deleteDream,
-  updateUser
+  updateUser,
+  saveImage,
+  allImages,
+  deleteImage
 }

@@ -1,15 +1,14 @@
-CREATE TABLE creencias (
+CREATE TABLE usuarios (
     id SERIAL PRIMARY KEY,
-    usuario INTEGER REFERENCES usuarios(id),
-    tipo VARCHAR(50),
-    origen VARCHAR(50),
-    fecha DATE DEFAULT CURRENT_DATE,
-    contenido TEXT
+    nombre VARCHAR(36) UNIQUE,
+    biografia VARCHAR(255) DEFAULT NULL,
+    clave_hash VARCHAR(255)
 );
+
 
 CREATE TABLE suenios (
     id SERIAL PRIMARY KEY,
-    usuario INTEGER REFERENCES usuarios(id),
+    usuario INTEGER REFERENCES usuarios(id) ON DELETE CASCADE,
     titulo VARCHAR(100),
     contenido TEXT,
     fecha DATE DEFAULT CURRENT_DATE,
@@ -19,27 +18,17 @@ CREATE TABLE suenios (
 
 CREATE TABLE comentarios (
     id SERIAL PRIMARY KEY,
-    usuario INTEGER REFERENCES usuarios(id),
+    usuario INTEGER REFERENCES usuarios(id) ON DELETE CASCADE,
     suenio INTEGER REFERENCES suenios(id) ON DELETE CASCADE,
     contenido TEXT,
     fecha DATE DEFAULT CURRENT_DATE
 );
 
-CREATE TABLE objetos_en_suenios (
+CREATE TABLE imagenes (
     id SERIAL PRIMARY KEY,
-    suenio INTEGER REFERENCES suenios(id) ON DELETE CASCADE,
-    usuario INTEGER REFERENCES usuarios(id),
-    nombre VARCHAR(100),
+    usuario INTEGER REFERENCES usuarios(id) ON DELETE CASCADE,
+    url TEXT NOT NULL,
+    titulo VARCHAR(255),
     descripcion TEXT,
-    simbolismo TEXT,
-    frecuencia_aparicion INTEGER,
-    asociado_a_creencia BOOLEAN DEFAULT FALSE
+    fecha DATE DEFAULT CURRENT_DATE
 );
-
-CREATE TABLE usuarios (
-    id SERIAL PRIMARY KEY,
-    nombre VARCHAR(36) UNIQUE,
-    biografia VARCHAR(255) DEFAULT NULL,
-    clave_hash VARCHAR(255)
-);
-
