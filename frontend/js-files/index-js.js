@@ -14,6 +14,7 @@ const botonCerrar = document.getElementById("boton-cerrar");
 const tarjetaSueniosLucidos = document.getElementById("tarjeta-suenios-lucidos");
 const tarjetaPerfil = document.getElementById("tarjeta-perfil");
 const tarjetaSuenios = document.getElementById("tarjeta-suenios")
+const botonIlustraciones = document.getElementById('boton-ilustraciones')
 
 if (usuarioNombre) {
     botonLogin.style.display = "none";
@@ -23,6 +24,7 @@ if (usuarioNombre) {
     botonMiPerfil.style.display = "none";
     botonMisSuenios.style.display = "none";
     botonCerrar.style.display = "none";
+    botonIlustraciones.style.display = 'none';
     tarjetaSueniosLucidos.href = "login.html"
     tarjetaPerfil.href = "login.html"
     tarjetaSuenios.href = "login.html"
