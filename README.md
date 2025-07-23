@@ -18,7 +18,7 @@ Sitio web para registrar y explorar sueños personales, colectivos y lúcidos, c
 
 # Cómo arrancar el proyecto
 
-Recomendacion: Antes de levantar el proyecto debes hacer ```bash npm install``` dentro de backend/ para instalar todas ls dependecias del proyecto, ademas de tener instalado Docker.
+Recomendacion: Antes de levantar el proyecto debes hacer ```bash npm install``` dentro de backend/ para instalar todas las dependecias del proyecto, ademas de tener instalado `Docker`. Deberas tener la carpeta uploads dentro de `backend/src` ya que alli se almacenaran localmente todas las imagenes que se suban a la pagina web.
 
 ## 1. Levantar la base de datos con Docker
 
