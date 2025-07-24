@@ -21,7 +21,8 @@ CREATE TABLE comentarios (
     usuario INTEGER REFERENCES usuarios(id) ON DELETE CASCADE,
     suenio INTEGER REFERENCES suenios(id) ON DELETE CASCADE,
     contenido TEXT,
-    fecha DATE DEFAULT CURRENT_DATE
+    fecha DATE DEFAULT CURRENT_DATE,
+    hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE imagenes (
