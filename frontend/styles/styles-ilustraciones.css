@@ -177,7 +177,12 @@ body {
     object-position: center;
 }
 
-.contenedor-ilustraciones-lista-datos p {
+.contenedor-ilustraciones-lista-datos-fecha {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 18px;
+}
+.contenedor-ilustraciones-lista-datos-autor {
     margin-top: 16px;
     text-align: center;
     font-size: 25px;
