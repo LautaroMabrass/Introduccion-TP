@@ -35,3 +35,19 @@ Ejecutá en la terminal:
 ```bash
 make start-backend
 ```
+
+## 3. Levantar el FrontEnd
+
+Ejecutá en otra terminal:
+
+```bash
+make start-frontend
+```
+
+## Recomendacion
+Puedes ejecutar el comando 1 y 2 de la forma:
+
+```bash
+make run-backend
+```
+Esto correra la API y la db al mismo tiempo.
